@@ -43,7 +43,7 @@ const loadGUI = () => {
      count++;
      vectorFolderObjects.push(obj) 
      vectorObjects.push(formats[Math.floor(Math.random() * 3)]);
-     //lookAt.add(looking, count);
+     lookAt.add(looking, `Object ${count}`);
   }};
 
   gui.add(addObject, 'Add Object');
@@ -65,5 +65,9 @@ const loadGUI = () => {
 
   var lookAt = camera.addFolder(`Olhar para`);
   //lookAt.add(looking, "1");
+
+  const textFilter = 'Olhar para'
+  const nodeFiltered = Array.prototype.slice.call(document.querySelectorAll('.folder .title')).filter((arg) => arg.innerText == textFilter);
+  nodeFiltered[0].setAttribute('id', 'olhar_para');
 
 };

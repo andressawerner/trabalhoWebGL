@@ -47,9 +47,8 @@ function main() {
   };
 
   function computeMatrix(viewProjectionMatrix, linearTranslation, axisRotation, scale) {
-    var matrix = m4.scale(viewProjectionMatrix, scale, scale, scale);
-    matrix = m4.translate(
-      matrix,
+    var matrix = m4.translate(
+      viewProjectionMatrix,
       linearTranslation.x,
       linearTranslation.y,
       linearTranslation.z,
@@ -57,6 +56,10 @@ function main() {
     matrix = m4.xRotate(matrix, axisRotation.x);
     matrix = m4.yRotate(matrix, axisRotation.y);
     matrix = m4.zRotate(matrix, axisRotation.z);
+
+    matrix = m4.scale(matrix, scale, scale, scale); 
+                    //coloquei scale para o fim pois antes estava mexendo o objeto 
+                    //ao invés de aumentar/diminuir
     return matrix
   }
 
