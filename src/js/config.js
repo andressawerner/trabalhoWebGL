@@ -169,4 +169,18 @@ var deleting = {
   const nodeFiltered = Array.prototype.slice.call(document.querySelectorAll('.folder .title')).filter((arg) => arg.innerText == textFilter);
   nodeFiltered[0].closest('.folder').setAttribute('class', 'none');
 },
+'Delete Object 9': function(){
+  const index = 8
+  const textFilter = `Object ${index + 1}`
+  vectorObjects[index] = ''
+  const nodeFiltered = Array.prototype.slice.call(document.querySelectorAll('.folder .title')).filter((arg) => arg.innerText == textFilter);
+  nodeFiltered[0].closest('.folder').setAttribute('class', 'none');
+},
+'Delete Object 10': function(){
+  const index = 9
+  const textFilter = `Object ${index + 1}`
+  vectorObjects[index] = ''
+  const nodeFiltered = Array.prototype.slice.call(document.querySelectorAll('.folder .title')).filter((arg) => arg.innerText == textFilter);
+  nodeFiltered[0].closest('.folder').setAttribute('class', 'none');
+},
 };
