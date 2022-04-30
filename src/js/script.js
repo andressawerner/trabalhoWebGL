@@ -73,15 +73,33 @@ function main() {
     gl.enable(gl.CULL_FACE);
 
     var aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
-    var projectionMatrix = m4.perspective(fieldOfViewRadians, aspect, 1, 2000);
+    //var projectionMatrix = m4.perspective(fieldOfViewRadians, aspect, 1, 2000);
 
+    var projectionMatrix = m4.perspective(fieldOfViewRadians, aspect, 1, 2000);
     // Compute the camera's matrix using look at.
     //var cameraPosition = [0, 0, 100];
-    var target = [0, 0, 0];
-    var up = [0, 1, 0];
+    //var target = [0, 0, 0];
+    //var up = [0, 1, 0];
 
-    var cameraPosition = [cam[0].translationX, cam[0].translationY, cam[0].translationZ];
-    var target = [cam[0].lookAtX, cam[0].lookAtY, cam[0].lookAtZ];
+    var cameraPosition = [cam[0].translationX, cam[0].translationY, cam[0].translationZ]
+    var target;
+    if(cam[0].lookingObject) {
+      target = [config[objectAcomp].translationX, config[objectAcomp].translationY, config[objectAcomp].translationZ]
+    } else {
+      if (!arrayIsEqual(cameraPosition, cam[0].pTranslation)) {
+        target = [
+          cam[0].lookAtX + cam[0].translationX, 
+          cam[0].lookAtY + cam[0].translationY, 
+          cam[0].lookAtZ + cam[0].translationZ - 100
+        ];
+        //cam[0].pTranslation = cameraPosition
+        
+      } else {
+        target = [cam[0].lookAtX, cam[0].lookAtY, cam[0].lookAtZ];
+      }
+      
+    }
+
     var up = [0, 1, 0];
 
     var cameraMatrix = m4.lookAt(cameraPosition, target, up);

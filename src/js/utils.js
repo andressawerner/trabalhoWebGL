@@ -2,13 +2,14 @@ const degToRad = (d) => (d * Math.PI) / 180;
 
 const radToDeg = (r) => (r * 180) / Math.PI;
 
-const localObject = (index) => {
+const localObject = (index, a) => {
   if (config[index]){
     cam[0].lookAtX = config[index].translationX
     cam[0].lookAtY = config[index].translationY
     cam[0].lookAtZ = config[index].translationZ
   }
-  lookingObject = false
+  objectAcomp = index
+  cam[0].lookingObject = a
 };
 
 const deleteObject = (index) => {
@@ -23,4 +24,30 @@ const deleteObject = (index) => {
         lookRemove[i].querySelector('.property-name')?.parentElement.parentElement.setAttribute('class', 'none')
       }
     }
+
+    const lookAcompRemove = document.querySelector('#acompanhar').parentElement.children
+    for (i = 0; i < lookAcompRemove.length; i++) {
+      if (lookAcompRemove[i].querySelector('.property-name')?.innerText == textFilter) {
+        lookAcompRemove[i].querySelector('.property-name')?.parentElement.parentElement.setAttribute('class', 'none')
+      }
+    }
+
+    if(cam[0].lookingObject && objectAcomp == index) {
+      cam[0].lookAtX = config[index].translationX
+      cam[0].lookAtY = config[index].translationY
+      cam[0].lookAtZ = config[index].translationZ
+      cam[0].lookingObject = false
+    }
+
+};
+
+const arrayIsEqual = (a,b) => {
+  if (a.length != b.length) return false;
+
+  for (var i = 0; i < b.length; i++) {
+    if (a[i] != b[i]) {
+      return false;
+    }
+  }
+  return true;
 };

@@ -43,6 +43,7 @@ const loadGUI = () => {
      vectorFolderObjects.push(obj) 
      vectorObjects.push(formats[Math.floor(Math.random() * 3)]);
      lookAt.add(looking, `Object ${count}`);
+     lookAcompanhar.add(lookingAcomp, `Object ${count}`);
   }};
 
   gui.add(addObject, 'Add Object');
@@ -50,7 +51,7 @@ const loadGUI = () => {
 
   // BOTÕES CÂMERA
   var camera = gui.addFolder('Câmera');
-  camera.add(cam[countCam], "zoom", 0, 20, 0.5);
+  camera.add(cam[countCam], "zoom", 0, 100, 1);
 
   const rotate = camera.addFolder(`Rotação no Eixo`);
   rotate.add(cam[countCam], "rotateX", 0, 20, 0.5);
@@ -58,18 +59,17 @@ const loadGUI = () => {
   rotate.add(cam[countCam], "rotateZ", 0, 20, 0.5);
 
   const translation = camera.addFolder(`Translação Linear`);
-  translation.add(cam[countCam], "translationX", -100, 100, 0.5);
-  translation.add(cam[countCam], "translationY", -100, 100, 0.5);
-  translation.add(cam[countCam], "translationZ", -100, 100, 0.5);
+  translation.add(cam[countCam], "translationX", -100, 100, 0.01);
+  translation.add(cam[countCam], "translationY", -100, 100, 0.01);
+  translation.add(cam[countCam], "translationZ", -100, 200, 0.01);
 
   var lookAt = camera.addFolder(`Olhar para`);
-  //lookAt.add(looking, "1");
 
   let textFilter = 'Olhar para'
   let nodeFiltered = Array.prototype.slice.call(document.querySelectorAll('.folder .title')).filter((arg) => arg.innerText == textFilter);
   nodeFiltered[0].setAttribute('id', 'olhar_para');
 
-  var lookAt = camera.addFolder(`Acompanhar`);
+  var lookAcompanhar = camera.addFolder(`Acompanhar`);
 
   textFilter = 'Acompanhar'
   nodeFiltered = Array.prototype.slice.call(document.querySelectorAll('.folder .title')).filter((arg) => arg.innerText == textFilter);

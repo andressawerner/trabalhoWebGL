@@ -20,43 +20,80 @@ var cam = [{
   lookAtY: 0,
   lookAtZ: 0,
   lookingObject: false,
+  pTranslation: [0, 0, 100]
 }];
 
 var objectAcomp = 0;
 
 var looking = {
   'Object 1': function(){
-    localObject(0)
+    localObject(0, false)
   },
   'Object 2': function(){
-    localObject(1)
+    localObject(1, false)
   },
   'Object 3': function(){
-    localObject(2)
+    localObject(2, false)
   },
   'Object 4': function(){
-    localObject(3)
+    localObject(3, false)
   },
   'Object 5': function(){
-    localObject(4)
+    localObject(4, false)
   },
   'Object 6': function(){
-    localObject(5)
+    localObject(5, false)
   },
   'Object 7': function(){
-    localObject(6)
+    localObject(6, false)
   },
   'Object 8': function(){
-    localObject(7)
+    localObject(7, false)
   },
   'Object 9': function(){
-    localObject(8)
+    localObject(8, false)
   },
   'Object 10': function(){
-    localObject(9)
+    localObject(9, false)
   },
   'Object 11': function(){
-    localObject(10)
+    localObject(10, false)
+  },
+};
+
+var lookingAcomp = {
+  'Object 1': function(){
+    localObject(0, true)
+  },
+  'Object 2': function(){
+    localObject(1, true)
+  },
+  'Object 3': function(){
+    localObject(2, true)
+  },
+  'Object 4': function(){
+    localObject(3, true)
+  },
+  'Object 5': function(){
+    localObject(4, true)
+  },
+  'Object 6': function(){
+    localObject(5, true)
+  },
+  'Object 7': function(){
+    localObject(6, true)
+  },
+  'Object 8': function(){
+    localObject(7, true)
+  },
+  'Object 9': function(){
+    localObject(8, true)
+  },
+  'Object 10': function(){
+    localObject(9, true)
+  },
+  'Object 11': function(){
+    localObject(10, true)
   },
 };
 
@@ -92,3 +129,4 @@ var deleting = {
   deleteObject(9)
 },
 };
+
