@@ -14,7 +14,6 @@ const loadGUI = () => {
   
   // BOTÕES OBJETOS
   var addObject = { 'Add Object': function(){
-     console.log("clicked");
      const obj = gui.addFolder(`Object ${count + 1}`);
 
      obj.add(deleting, 'Delete Object ' + (count+1));
@@ -66,8 +65,14 @@ const loadGUI = () => {
   var lookAt = camera.addFolder(`Olhar para`);
   //lookAt.add(looking, "1");
 
-  const textFilter = 'Olhar para'
-  const nodeFiltered = Array.prototype.slice.call(document.querySelectorAll('.folder .title')).filter((arg) => arg.innerText == textFilter);
+  let textFilter = 'Olhar para'
+  let nodeFiltered = Array.prototype.slice.call(document.querySelectorAll('.folder .title')).filter((arg) => arg.innerText == textFilter);
   nodeFiltered[0].setAttribute('id', 'olhar_para');
+
+  var lookAt = camera.addFolder(`Acompanhar`);
+
+  textFilter = 'Acompanhar'
+  nodeFiltered = Array.prototype.slice.call(document.querySelectorAll('.folder .title')).filter((arg) => arg.innerText == textFilter);
+  nodeFiltered[0].setAttribute('id', 'acompanhar');
 
 };

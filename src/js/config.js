@@ -19,238 +19,76 @@ var cam = [{
   lookAtX: 0,
   lookAtY: 0,
   lookAtZ: 0,
+  lookingObject: false,
 }];
+
+var objectAcomp = 0;
 
 var looking = {
   'Object 1': function(){
-    const index = 0
-    if (config[index]){
-      cam[0].lookAtX = config[index].translationX
-      cam[0].lookAtY = config[index].translationY
-      cam[0].lookAtZ = config[index].translationZ
-    }
+    localObject(0)
   },
   'Object 2': function(){
-    const index = 1
-    if (config[index]){
-      cam[0].lookAtX = config[index].translationX
-      cam[0].lookAtY = config[index].translationY
-      cam[0].lookAtZ = config[index].translationZ
-    }
+    localObject(1)
   },
   'Object 3': function(){
-    const index = 2
-    if (config[index]){
-      cam[0].lookAtX = config[index].translationX
-      cam[0].lookAtY = config[index].translationY
-      cam[0].lookAtZ = config[index].translationZ
-    }
+    localObject(2)
   },
   'Object 4': function(){
-    const index = 3
-    if (config[index]){
-      cam[0].lookAtX = config[index].translationX
-      cam[0].lookAtY = config[index].translationY
-      cam[0].lookAtZ = config[index].translationZ
-    }
+    localObject(3)
   },
   'Object 5': function(){
-    const index = 4
-    if (config[index]){
-      cam[0].lookAtX = config[index].translationX
-      cam[0].lookAtY = config[index].translationY
-      cam[0].lookAtZ = config[index].translationZ
-    }
+    localObject(4)
   },
   'Object 6': function(){
-    const index = 5
-    if (config[index]){
-      cam[0].lookAtX = config[index].translationX
-      cam[0].lookAtY = config[index].translationY
-      cam[0].lookAtZ = config[index].translationZ
-    }
+    localObject(5)
   },
   'Object 7': function(){
-    const index = 6
-    if (config[index]){
-      cam[0].lookAtX = config[index].translationX
-      cam[0].lookAtY = config[index].translationY
-      cam[0].lookAtZ = config[index].translationZ
-    }
+    localObject(6)
   },
   'Object 8': function(){
-    const index = 7
-    if (config[index]){
-      cam[0].lookAtX = config[index].translationX
-      cam[0].lookAtY = config[index].translationY
-      cam[0].lookAtZ = config[index].translationZ
-    }
+    localObject(7)
   },
   'Object 9': function(){
-    const index = 8
-    if (config[index]){
-      cam[0].lookAtX = config[index].translationX
-      cam[0].lookAtY = config[index].translationY
-      cam[0].lookAtZ = config[index].translationZ
-    }
+    localObject(8)
   },
   'Object 10': function(){
-    const index = 9
-    if (config[index]){
-      cam[0].lookAtX = config[index].translationX
-      cam[0].lookAtY = config[index].translationY
-      cam[0].lookAtZ = config[index].translationZ
-    }
+    localObject(9)
   },
   'Object 11': function(){
-    const index = 10
-    if (config[index]){
-      cam[0].lookAtX = config[index].translationX
-      cam[0].lookAtY = config[index].translationY
-      cam[0].lookAtZ = config[index].translationZ
-    }
+    localObject(10)
   },
 };
 
 var deleting = {
   'Delete Object 1': function(){
-    const index = 0
-    const textFilter = `Object ${index + 1}`
-    vectorObjects[index] = ''
-    const nodeFiltered = Array.prototype.slice.call(document.querySelectorAll('.folder .title')).filter((arg) => arg.innerText == textFilter);
-    nodeFiltered[0].closest('.folder').setAttribute('class', 'none');
-
-    const lookRemove = document.querySelector('#olhar_para').parentElement.children
-    for (i = 0; i < lookRemove.length; i++) {
-      if (lookRemove[i].querySelector('.property-name')?.innerText == textFilter) {
-        lookRemove[i].querySelector('.property-name')?.parentElement.parentElement.setAttribute('class', 'none')
-      }
-    }
+    deleteObject(0)
   },
   'Delete Object 2': function(){
-    const index = 1
-    const textFilter = `Object ${index + 1}`
-    vectorObjects[index] = ''
-    const nodeFiltered = Array.prototype.slice.call(document.querySelectorAll('.folder .title')).filter((arg) => arg.innerText == textFilter);
-    nodeFiltered[0].closest('.folder').setAttribute('class', 'none');
-
-    const lookRemove = document.querySelector('#olhar_para').parentElement.children
-    for (i = 0; i < lookRemove.length; i++) {
-      if (lookRemove[i].querySelector('.property-name')?.innerText == textFilter) {
-        lookRemove[i].querySelector('.property-name')?.parentElement.parentElement.setAttribute('class', 'none')
-      }
-    }
+    deleteObject(1)
  },
   'Delete Object 3': function(){
-    const index = 2
-    const textFilter = `Object ${index + 1}`
-    vectorObjects[index] = ''
-    const nodeFiltered = Array.prototype.slice.call(document.querySelectorAll('.folder .title')).filter((arg) => arg.innerText == textFilter);
-    nodeFiltered[0].closest('.folder').setAttribute('class', 'none');
-
-    const lookRemove = document.querySelector('#olhar_para').parentElement.children
-    for (i = 0; i < lookRemove.length; i++) {
-      if (lookRemove[i].querySelector('.property-name')?.innerText == textFilter) {
-        lookRemove[i].querySelector('.property-name')?.parentElement.parentElement.setAttribute('class', 'none')
-      }
-    }
+    deleteObject(2)
  },
  'Delete Object 4': function(){
-  const index = 3
-  const textFilter = `Object ${index + 1}`
-  vectorObjects[index] = ''
-  const nodeFiltered = Array.prototype.slice.call(document.querySelectorAll('.folder .title')).filter((arg) => arg.innerText == textFilter);
-  nodeFiltered[0].closest('.folder').setAttribute('class', 'none');
-
-  const lookRemove = document.querySelector('#olhar_para').parentElement.children
-  for (i = 0; i < lookRemove.length; i++) {
-    if (lookRemove[i].querySelector('.property-name')?.innerText == textFilter) {
-      lookRemove[i].querySelector('.property-name')?.parentElement.parentElement.setAttribute('class', 'none')
-    }
-  }
+  deleteObject(3)
 },
 'Delete Object 5': function(){
-  const index = 4
-  const textFilter = `Object ${index + 1}`
-  vectorObjects[index] = ''
-  const nodeFiltered = Array.prototype.slice.call(document.querySelectorAll('.folder .title')).filter((arg) => arg.innerText == textFilter);
-  nodeFiltered[0].closest('.folder').setAttribute('class', 'none');
-
-  const lookRemove = document.querySelector('#olhar_para').parentElement.children
-  for (i = 0; i < lookRemove.length; i++) {
-    if (lookRemove[i].querySelector('.property-name')?.innerText == textFilter) {
-      lookRemove[i].querySelector('.property-name')?.parentElement.parentElement.setAttribute('class', 'none')
-    }
-  }
+  deleteObject(4)
 },
 'Delete Object 6': function(){
-  const index = 5
-  const textFilter = `Object ${index + 1}`
-  vectorObjects[index] = ''
-  const nodeFiltered = Array.prototype.slice.call(document.querySelectorAll('.folder .title')).filter((arg) => arg.innerText == textFilter);
-  nodeFiltered[0].closest('.folder').setAttribute('class', 'none');
-
-  const lookRemove = document.querySelector('#olhar_para').parentElement.children
-  for (i = 0; i < lookRemove.length; i++) {
-    if (lookRemove[i].querySelector('.property-name')?.innerText == textFilter) {
-      lookRemove[i].querySelector('.property-name')?.parentElement.parentElement.setAttribute('class', 'none')
-    }
-  }
+  deleteObject(5)
 },
 'Delete Object 7': function(){
-  const index = 6
-  const textFilter = `Object ${index + 1}`
-  vectorObjects[index] = ''
-  const nodeFiltered = Array.prototype.slice.call(document.querySelectorAll('.folder .title')).filter((arg) => arg.innerText == textFilter);
-  nodeFiltered[0].closest('.folder').setAttribute('class', 'none');
-
-  const lookRemove = document.querySelector('#olhar_para').parentElement.children
-  for (i = 0; i < lookRemove.length; i++) {
-    if (lookRemove[i].querySelector('.property-name')?.innerText == textFilter) {
-      lookRemove[i].querySelector('.property-name')?.parentElement.parentElement.setAttribute('class', 'none')
-    }
-  }
+  deleteObject(6)
 },
 'Delete Object 8': function(){
-  const index = 7
-  const textFilter = `Object ${index + 1}`
-  vectorObjects[index] = ''
-  const nodeFiltered = Array.prototype.slice.call(document.querySelectorAll('.folder .title')).filter((arg) => arg.innerText == textFilter);
-  nodeFiltered[0].closest('.folder').setAttribute('class', 'none');
-
-  const lookRemove = document.querySelector('#olhar_para').parentElement.children
-  for (i = 0; i < lookRemove.length; i++) {
-    if (lookRemove[i].querySelector('.property-name')?.innerText == textFilter) {
-      lookRemove[i].querySelector('.property-name')?.parentElement.parentElement.setAttribute('class', 'none')
-    }
-  }
+  deleteObject(7)
 },
 'Delete Object 9': function(){
-  const index = 8
-  const textFilter = `Object ${index + 1}`
-  vectorObjects[index] = ''
-  const nodeFiltered = Array.prototype.slice.call(document.querySelectorAll('.folder .title')).filter((arg) => arg.innerText == textFilter);
-  nodeFiltered[0].closest('.folder').setAttribute('class', 'none');
-
-  const lookRemove = document.querySelector('#olhar_para').parentElement.children
-  for (i = 0; i < lookRemove.length; i++) {
-    if (lookRemove[i].querySelector('.property-name')?.innerText == textFilter) {
-      lookRemove[i].querySelector('.property-name')?.parentElement.parentElement.setAttribute('class', 'none')
-    }
-  }
+  deleteObject(8)
 },
 'Delete Object 10': function(){
-  const index = 9
-  const textFilter = `Object ${index + 1}`
-  vectorObjects[index] = ''
-  const nodeFiltered = Array.prototype.slice.call(document.querySelectorAll('.folder .title')).filter((arg) => arg.innerText == textFilter);
-  nodeFiltered[0].closest('.folder').setAttribute('class', 'none');
-
-  const lookRemove = document.querySelector('#olhar_para').parentElement.children
-  for (i = 0; i < lookRemove.length; i++) {
-    if (lookRemove[i].querySelector('.property-name')?.innerText == textFilter) {
-      lookRemove[i].querySelector('.property-name')?.parentElement.parentElement.setAttribute('class', 'none')
-    }
-  }
+  deleteObject(9)
 },
 };
