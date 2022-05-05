@@ -25,25 +25,54 @@ const loadGUI = () => {
       translationX: 0, 
       translationY: 0, 
       translationZ: 0,
-      scale: 1
+      scale: 1,
+      bezier: false,
+      bezierT: 0,
+      bezierX1: -60,
+      bezierX2: -60,
+      bezierX3: 50,
+      bezierX4: 50,
+      bezierY1: -30,
+      bezierY2: 30,
+      bezierY3: 30,
+      bezierY4: -30,
     })
 
     obj.add(config[count], "scale", 0, 10, 0.1);
 
     const rotate = obj.addFolder(`Rotação no Eixo`);
-    rotate.add(config[count], "rotateX", 0, 20, 0.5);
-    rotate.add(config[count], "rotateY", 0, 20, 0.5);
-    rotate.add(config[count], "rotateZ", 0, 20, 0.5);
+    rotate.add(config[count], "rotateX", 0, 20, 0.5).name('X');
+    rotate.add(config[count], "rotateY", 0, 20, 0.5).name('Y');
+    rotate.add(config[count], "rotateZ", 0, 20, 0.5).name('Z');
 
     const translation = obj.addFolder(`Translação Linear`);
-    translation.add(config[count], "translationX", -100, 100, 0.5);
-    translation.add(config[count], "translationY", -100, 100, 0.5);
-    translation.add(config[count], "translationZ", -100, 100, 0.5);
-     count++;
-     vectorFolderObjects.push(obj) 
-     vectorObjects.push(formats[Math.floor(Math.random() * 3)]);
-     lookAt.add(looking, `Object ${count}`);
-     lookAcompanhar.add(lookingAcomp, `Object ${count}`);
+    translation.add(config[count], "translationX", -100, 100, 0.5).name('X');
+    translation.add(config[count], "translationY", -100, 100, 0.5).name('Y');
+    translation.add(config[count], "translationZ", -100, 100, 0.5).name('Z');
+
+    const bezier = obj.addFolder(`Translação Bezier`);
+    bezier.add(config[count], "bezier").name('Bezier');
+    bezier.add(config[count], "bezierT", 0, 1, 0.01).name('t');
+    bezier.add(config[count], "bezierX1", -100, 100, 0.5).name('1: X');
+    bezier.add(config[count], "bezierY1", -100, 100, 0.5).name('1: Y');
+
+    bezier.add(config[count], "bezierX2", -100, 100, 0.5).name('2: X');
+    bezier.add(config[count], "bezierY2", -100, 100, 0.5).name('2: Y');
+
+    bezier.add(config[count], "bezierX3", -100, 100, 0.5).name('3: X');
+    bezier.add(config[count], "bezierY3", -100, 100, 0.5).name('3: Y');
+
+    bezier.add(config[count], "bezierX4", -100, 100, 0.5).name('4: X');
+    bezier.add(config[count], "bezierY4", -100, 100, 0.5).name('4: Y');
+
+    count++;
+    vectorFolderObjects.push(obj) 
+    vectorObjects.push(formats[Math.floor(Math.random() * 3)]);
+    lookAt.add(looking, `Object ${count}`);
+    lookAcompanhar.add(lookingAcomp, `Object ${count}`);
+
+
+
   }};
 
   gui.add(addObject, 'Add Object');
@@ -54,14 +83,14 @@ const loadGUI = () => {
   camera.add(cam[countCam], "zoom", 0, 100, 1);
 
   const rotate = camera.addFolder(`Rotação no Eixo`);
-  rotate.add(cam[countCam], "rotateX", 0, 20, 0.5);
-  rotate.add(cam[countCam], "rotateY", 0, 20, 0.5);
-  rotate.add(cam[countCam], "rotateZ", 0, 20, 0.5);
+  rotate.add(cam[countCam], "rotateX", 0, 20, 0.5).name('X');
+  rotate.add(cam[countCam], "rotateY", 0, 20, 0.5).name('Y');
+  rotate.add(cam[countCam], "rotateZ", 0, 20, 0.5).name('Z');
 
   const translation = camera.addFolder(`Translação Linear`);
-  translation.add(cam[countCam], "translationX", -100, 100, 0.01);
-  translation.add(cam[countCam], "translationY", -100, 100, 0.01);
-  translation.add(cam[countCam], "translationZ", -100, 200, 0.01);
+  translation.add(cam[countCam], "translationX", -100, 100, 0.01).name('X');
+  translation.add(cam[countCam], "translationY", -100, 100, 0.01).name('Y');
+  translation.add(cam[countCam], "translationZ", -100, 200, 0.01).name('Z');
 
   var lookAt = camera.addFolder(`Olhar para`);
 

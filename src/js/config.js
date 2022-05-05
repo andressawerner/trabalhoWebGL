@@ -5,7 +5,17 @@ var config = [{
   translationX: 0, 
   translationY: 0, 
   translationZ: 0,
-  scale: 1
+  scale: 1,
+  bezier: false,
+  bezierT: 0,
+  bezierX1: -60,
+  bezierX2: -60,
+  bezierX3: 50,
+  bezierX4: 50,
+  bezierY1: -30,
+  bezierY2: 30,
+  bezierY3: 30,
+  bezierY4: -30,
 }];
 
 var cam = [{ 

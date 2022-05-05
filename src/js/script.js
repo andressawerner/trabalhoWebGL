@@ -46,11 +46,13 @@ function main() {
     u_matrix: m4.identity(),
   };
 
-  function computeMatrix(viewProjectionMatrix, linearTranslation, axisRotation, scale) {
+  function computeMatrix(viewProjectionMatrix, linearTranslation, axisRotation, scale, bezier, pointBezier) {
     var matrix = m4.translate(
       viewProjectionMatrix,
-      linearTranslation.x,
-      linearTranslation.y,
+      bezier? linearTranslation.x + pointBezier.x
+      : linearTranslation.x ,
+      bezier? linearTranslation.y + pointBezier.y
+      : linearTranslation.y ,
       linearTranslation.z,
     );
     matrix = m4.xRotate(matrix, axisRotation.x);
@@ -119,12 +121,20 @@ function main() {
   
           // Setup all the needed attributes.
           gl.bindVertexArray(cubeVAO);
+
+          bez = config[i].bezier
+          const b = !bez ? [0,0] 
+          : bezier(config[i].bezierT, 
+            {x: config[i].bezierX1, y:config[i].bezierY1},
+            {x: config[i].bezierX2, y:config[i].bezierY2},
+            {x: config[i].bezierX3, y:config[i].bezierY3},
+            {x: config[i].bezierX4, y:config[i].bezierY4})
   
           cubeUniforms.u_matrix = computeMatrix(
             viewProjectionMatrix,
             {x: config[i].translationX, y: config[i].translationY, z: config[i].translationZ},
             {x: config[i].rotateX, y: config[i].rotateY, z: config[i].rotateZ},
-            config[i].scale
+            config[i].scale, config[i].bezier, {x: b[0], y:b[1]}
           );
   
           // Set the uniforms we just computed
