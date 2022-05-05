@@ -5,46 +5,49 @@ function main() {
   var fieldOfViewRadians = degToRad(60);
 
   // CUBO
-  const cubeBufferInfo = flattenedPrimitives.createCubeBufferInfo(gl, 20);
+  const bufferInfo = []
+  bufferInfo.push(flattenedPrimitives.createCubeBufferInfo(gl, 20));
 
-  const cubeVAO = twgl.createVAOFromBufferInfo(
+  const vao = []
+  vao.push(twgl.createVAOFromBufferInfo(
     gl,
     meshProgramInfo,
-    cubeBufferInfo,
-  );
+    bufferInfo[0],
+  ));
 
-  const cubeUniforms = {
+  const uniforms = []
+  uniforms.push({
     u_colorMult: [1, 0.5, 0.5, 1],
     u_matrix: m4.identity(),
-  };
+  });
 
   // ESFERA
-  const sphereBufferInfo = flattenedPrimitives.createSphereBufferInfo(gl, 10, 12, 6);
+  bufferInfo.push(flattenedPrimitives.createSphereBufferInfo(gl, 10, 12, 6));
 
-  var sphereVAO = twgl.createVAOFromBufferInfo(
+  vao.push(twgl.createVAOFromBufferInfo(
     gl, 
     meshProgramInfo, 
-    sphereBufferInfo
-  );
+    bufferInfo[1]
+  ));
 
-  var sphereUniforms = {
+  uniforms.push({
     u_colorMult: [0.8, 1, 0.5, 1],
     u_matrix: m4.identity(),
-  };
+  });
 
   // CONE
-  const coneBufferInfo = flattenedPrimitives.createTruncatedConeBufferInfo(gl, 10, 0, 20, 12, 1, true, false);
+  bufferInfo.push(flattenedPrimitives.createTruncatedConeBufferInfo(gl, 10, 0, 20, 12, 1, true, false));
 
-  var coneVAO   = twgl.createVAOFromBufferInfo(
+  vao.push(twgl.createVAOFromBufferInfo(
     gl, 
     meshProgramInfo, 
-    coneBufferInfo
-  );
+    bufferInfo[2]
+  ));
 
-  var coneUniforms = {
+  uniforms.push({
     u_colorMult: [0.5, 0.5, 1, 1],
     u_matrix: m4.identity(),
-  };
+  });
 
   function computeMatrix(viewProjectionMatrix, linearTranslation, axisRotation, scale, bezier, pointBezier) {
     var matrix = m4.translate(
@@ -115,72 +118,43 @@ function main() {
 
     for (i = 0; i < vectorObjects.length; i++){
       const random = vectorObjects[i]
+      let index = 10
       switch (random){
         case 'cube':
-          // ------ Draw the cube --------
-  
-          // Setup all the needed attributes.
-          gl.bindVertexArray(cubeVAO);
-
-          bez = config[i].bezier
-          const b = !bez ? [0,0] 
-          : bezier(config[i].bezierT, 
-            {x: config[i].bezierX1, y:config[i].bezierY1},
-            {x: config[i].bezierX2, y:config[i].bezierY2},
-            {x: config[i].bezierX3, y:config[i].bezierY3},
-            {x: config[i].bezierX4, y:config[i].bezierY4})
-  
-          cubeUniforms.u_matrix = computeMatrix(
-            viewProjectionMatrix,
-            {x: config[i].translationX, y: config[i].translationY, z: config[i].translationZ},
-            {x: config[i].rotateX, y: config[i].rotateY, z: config[i].rotateZ},
-            config[i].scale, config[i].bezier, {x: b[0], y:b[1]}
-          );
-  
-          // Set the uniforms we just computed
-          twgl.setUniforms(meshProgramInfo, cubeUniforms);
-  
-          twgl.drawBufferInfo(gl, cubeBufferInfo);
-          break;
-  
+          index = 0;
+        break;
         case 'sphere':
-          // ------ Draw the sphere --------
-  
-          // Setup all the needed attributes.
-          gl.bindVertexArray(sphereVAO);
-  
-          sphereUniforms.u_matrix = computeMatrix(
-            viewProjectionMatrix,
-            {x: config[i].translationX, y: config[i].translationY, z: config[i].translationZ},
-            {x: config[i].rotateX, y: config[i].rotateY, z: config[i].rotateZ},
-            config[i].scale
-          );
-  
-          // Set the uniforms we just computed
-          twgl.setUniforms(meshProgramInfo, sphereUniforms);
-  
-          twgl.drawBufferInfo(gl, sphereBufferInfo);
-          break;  
-
+          index = 1
+        break;
         case 'cone':
-          // ------ Draw the cone --------
-  
-          // Setup all the needed attributes.
-          gl.bindVertexArray(coneVAO);
-  
-          coneUniforms.u_matrix = computeMatrix(
-            viewProjectionMatrix,
-            {x: config[i].translationX, y: config[i].translationY, z: config[i].translationZ},
-            {x: config[i].rotateX, y: config[i].rotateY, z: config[i].rotateZ},
-            config[i].scale
-          );
-  
-          // Set the uniforms we just computed
-          twgl.setUniforms(meshProgramInfo, coneUniforms);
-  
-          twgl.drawBufferInfo(gl, coneBufferInfo);
-          break;
+          index = 2
+        break;
       }
+      if (!!random){
+        // Setup all the needed attributes.
+        gl.bindVertexArray(vao[index]);
+
+        bez = config[i].bezier
+        const b = !bez ? [0,0] 
+        : bezier(config[i].bezierT, 
+          {x: config[i].bezierX1, y:config[i].bezierY1},
+          {x: config[i].bezierX2, y:config[i].bezierY2},
+          {x: config[i].bezierX3, y:config[i].bezierY3},
+          {x: config[i].bezierX4, y:config[i].bezierY4})
+
+        uniforms[index].u_matrix = computeMatrix(
+          viewProjectionMatrix,
+          {x: config[i].translationX, y: config[i].translationY, z: config[i].translationZ},
+          {x: config[i].rotateX, y: config[i].rotateY, z: config[i].rotateZ},
+          config[i].scale, config[i].bezier, {x: b[0], y:b[1]}
+        );
+
+        // Set the uniforms we just computed
+        twgl.setUniforms(meshProgramInfo, uniforms[index]);
+
+        twgl.drawBufferInfo(gl, bufferInfo[index]);
+      }
+
     }
     
     if (vectorObjects.every(arg => arg == '')) {
