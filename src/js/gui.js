@@ -98,9 +98,9 @@ const loadGUI = () => {
   camera.add(cam[countCam], "zoom", 10, 150, 1);
 
   const rotate = camera.addFolder(`Rotação no Eixo`);
-  rotate.add(cam[countCam], "rotateX", 0, 20, 0.5).name('X');
-  rotate.add(cam[countCam], "rotateY", 0, 20, 0.5).name('Y');
-  rotate.add(cam[countCam], "rotateZ", 0, 20, 0.5).name('Z');
+  rotate.add(cam[countCam], "rotateX", -1, 1, 0.01).name('X');
+  rotate.add(cam[countCam], "rotateY", -1, 1, 0.01).name('Y');
+  rotate.add(cam[countCam], "rotateZ", -1, 1, 0.01).name('Z');
 
   const translation = camera.addFolder(`Translação Linear`);
   translation.add(cam[countCam], "translationX", -100, 100, 0.01).name('X');

@@ -29,9 +29,9 @@ var config = [{
 }];
 
 var cam = [{ 
-  rotateX: degToRad(20), 
-  rotateY: degToRad(20), 
-  rotateZ: degToRad(20), 
+  rotateX: degToRad(0), 
+  rotateY: degToRad(0), 
+  rotateZ: degToRad(0), 
   bezier: false,
   bezierT: 0,
   bezierX1: -60,

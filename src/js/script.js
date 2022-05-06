@@ -118,6 +118,7 @@ function main() {
       }
 
     var cameraPosition = [cam[0].translationX, cam[0].translationY, cam[0].translationZ]
+
     var target;
     if(cam[0].lookingObject) {
       target = [config[objectAcomp].translationX, config[objectAcomp].translationY, config[objectAcomp].translationZ]
@@ -139,6 +140,10 @@ function main() {
     var up = [0, 1, 0];
 
     var cameraMatrix = m4.lookAt(cameraPosition, target, up);
+
+    cameraMatrix = m4.xRotate(cameraMatrix, cam[0].rotateX);
+    cameraMatrix = m4.yRotate(cameraMatrix, cam[0].rotateY);
+    cameraMatrix = m4.zRotate(cameraMatrix, cam[0].rotateZ);
 
     // Make a view matrix from the camera matrix.
     var viewMatrix = m4.inverse(cameraMatrix);
