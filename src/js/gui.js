@@ -94,7 +94,8 @@ const loadGUI = () => {
 
   // BOTÕES CÂMERA
   var camera = gui.addFolder('Câmera');
-  camera.add(cam[countCam], "zoom", 0, 120, 1);
+
+  camera.add(cam[countCam], "zoom", 10, 150, 1);
 
   const rotate = camera.addFolder(`Rotação no Eixo`);
   rotate.add(cam[countCam], "rotateX", 0, 20, 0.5).name('X');
@@ -105,6 +106,21 @@ const loadGUI = () => {
   translation.add(cam[countCam], "translationX", -100, 100, 0.01).name('X');
   translation.add(cam[countCam], "translationY", -100, 100, 0.01).name('Y');
   translation.add(cam[countCam], "translationZ", -100, 200, 0.01).name('Z');
+
+  const bezier = camera.addFolder(`Translação Bezier`);
+  bezier.add(cam[countCam], "bezier").name('Bezier');
+  bezier.add(cam[countCam], "bezierT", 0, 1, 0.01).name('t');
+  bezier.add(cam[countCam], "bezierX1", -100, 100, 0.5).name('1: X');
+  bezier.add(cam[countCam], "bezierY1", -100, 100, 0.5).name('1: Y');
+
+  bezier.add(cam[countCam], "bezierX2", -100, 100, 0.5).name('2: X');
+  bezier.add(cam[countCam], "bezierY2", -100, 100, 0.5).name('2: Y');
+
+  bezier.add(cam[countCam], "bezierX3", -100, 100, 0.5).name('3: X');
+  bezier.add(cam[countCam], "bezierY3", -100, 100, 0.5).name('3: Y');
+
+  bezier.add(cam[countCam], "bezierX4", -100, 100, 0.5).name('4: X');
+  bezier.add(cam[countCam], "bezierY4", -100, 100, 0.5).name('4: Y');
 
   var lookAt = camera.addFolder(`Olhar para`);
 

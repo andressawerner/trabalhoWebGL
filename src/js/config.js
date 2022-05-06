@@ -1,5 +1,5 @@
 var time = 0.005;
-
+var selectedCam = 0;
 
 var config = [{ 
   rotateX: degToRad(20), 
@@ -32,10 +32,20 @@ var cam = [{
   rotateX: degToRad(20), 
   rotateY: degToRad(20), 
   rotateZ: degToRad(20), 
+  bezier: false,
+  bezierT: 0,
+  bezierX1: -60,
+  bezierX2: -60,
+  bezierX3: 50,
+  bezierX4: 50,
+  bezierY1: -30,
+  bezierY2: 30,
+  bezierY3: 30,
+  bezierY4: -30,
   translationX: 0, 
   translationY: 0, 
   translationZ: 100,
-  zoom: 60,
+  zoom: 90,
   lookAtX: 0,
   lookAtY: 0,
   lookAtZ: 0,

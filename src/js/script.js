@@ -97,13 +97,25 @@ function main() {
     var aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
     //var projectionMatrix = m4.perspective(fieldOfViewRadians, aspect, 1, 2000);
 
-    fieldOfViewRadians = degToRad(cam[0].zoom);
+    fieldOfViewRadians = degToRad(150 - cam[0].zoom);
 
     var projectionMatrix = m4.perspective(fieldOfViewRadians, aspect, 1, 2000);
     // Compute the camera's matrix using look at.
     //var cameraPosition = [0, 0, 100];
     //var target = [0, 0, 0];
     //var up = [0, 1, 0];
+
+    const b = !cam[0].bezier ? [0,0] 
+    : bezier(cam[0].bezierT, 
+      {x: cam[0].bezierX1, y:cam[0].bezierY1},
+      {x: cam[0].bezierX2, y:cam[0].bezierY2},
+      {x: cam[0].bezierX3, y:cam[0].bezierY3},
+      {x: cam[0].bezierX4, y:cam[0].bezierY4})
+
+      if (!arrayIsEqual(b,[0,0])){
+        cam[0].translationX = b[0]
+        cam[0].translationY = b[1]
+      }
 
     var cameraPosition = [cam[0].translationX, cam[0].translationY, cam[0].translationZ]
     var target;
