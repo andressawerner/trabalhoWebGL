@@ -8,6 +8,7 @@ var button = {
 };
 
 const loadGUI = () => {
+
   const gui = new dat.GUI();
   var count = 0;
   var countCam = 0;
@@ -22,6 +23,12 @@ const loadGUI = () => {
       rotateX: degToRad(20), 
       rotateY: degToRad(20), 
       rotateZ: degToRad(20), 
+      pointRotation: false,
+      diameter: 0,
+      statusPointRotation: 90,
+      rotatePointX: degToRad(20), 
+      rotatePointY: degToRad(20), 
+      rotatePointZ: degToRad(20), 
       translationX: 0, 
       translationY: 0, 
       translationZ: 0,
@@ -36,14 +43,21 @@ const loadGUI = () => {
       bezierY2: 30,
       bezierY3: 30,
       bezierY4: -30,
+      text: '',
     })
 
     obj.add(config[count], "scale", 0, 10, 0.1);
+    obj.add(config[count], "text");
 
     const rotate = obj.addFolder(`Rotação no Eixo`);
     rotate.add(config[count], "rotateX", 0, 20, 0.5).name('X');
     rotate.add(config[count], "rotateY", 0, 20, 0.5).name('Y');
     rotate.add(config[count], "rotateZ", 0, 20, 0.5).name('Z');
+
+    const rotatePoint = obj.addFolder(`Rotação no Ponto`);
+    rotatePoint.add(config[count], "pointRotation").name('Ativar');
+    rotatePoint.add(config[count], "diameter", 1, 100, 2).name('Diâmetro');
+    rotatePoint.add(config[count], "statusPointRotation", -360, 360, 2).name('Status');
 
     const translation = obj.addFolder(`Translação Linear`);
     translation.add(config[count], "translationX", -100, 100, 0.5).name('X');
@@ -80,7 +94,7 @@ const loadGUI = () => {
 
   // BOTÕES CÂMERA
   var camera = gui.addFolder('Câmera');
-  camera.add(cam[countCam], "zoom", 0, 100, 1);
+  camera.add(cam[countCam], "zoom", 0, 120, 1);
 
   const rotate = camera.addFolder(`Rotação no Eixo`);
   rotate.add(cam[countCam], "rotateX", 0, 20, 0.5).name('X');

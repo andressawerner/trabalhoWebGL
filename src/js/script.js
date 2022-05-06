@@ -49,15 +49,31 @@ function main() {
     u_matrix: m4.identity(),
   });
 
-  function computeMatrix(viewProjectionMatrix, linearTranslation, axisRotation, scale, bezier, pointBezier) {
+  function computeMatrix(viewProjectionMatrix, linearTranslation, axisRotation, scale, bezier, pointRotation) {
+    /* if(config.circulo == true){
+      cubeTX = Math.sin(degToRad(time*(config.Cvel)))*config.Csize
+      cubeTY = Math.cos(degToRad(time*(config.Cvel)))*config.Csize
+    } */
+    
+    let translationX = bezier.bool? 
+      linearTranslation.x + bezier.x
+      : (pointRotation.bool?
+        Math.sin(degToRad(pointRotation.statusPointRotation)) * pointRotation.diameter
+        : linearTranslation.x)
+
+    let translationY = bezier.bool? 
+    linearTranslation.y + bezier.y
+    : (pointRotation.bool?
+      Math.cos(degToRad(pointRotation.statusPointRotation))*pointRotation.diameter
+      : linearTranslation.y)
+    
     var matrix = m4.translate(
       viewProjectionMatrix,
-      bezier? linearTranslation.x + pointBezier.x
-      : linearTranslation.x ,
-      bezier? linearTranslation.y + pointBezier.y
-      : linearTranslation.y ,
+      translationX,
+      translationY,
       linearTranslation.z,
     );
+    
     matrix = m4.xRotate(matrix, axisRotation.x);
     matrix = m4.yRotate(matrix, axisRotation.y);
     matrix = m4.zRotate(matrix, axisRotation.z);
@@ -70,7 +86,8 @@ function main() {
 
   loadGUI();
 
-  function render() {
+  function render(time) {
+    time *= 0.005;
     twgl.resizeCanvasToDisplaySize(gl.canvas);
 
     gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
@@ -79,6 +96,8 @@ function main() {
 
     var aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
     //var projectionMatrix = m4.perspective(fieldOfViewRadians, aspect, 1, 2000);
+
+    fieldOfViewRadians = degToRad(cam[0].zoom);
 
     var projectionMatrix = m4.perspective(fieldOfViewRadians, aspect, 1, 2000);
     // Compute the camera's matrix using look at.
@@ -134,21 +153,30 @@ function main() {
         // Setup all the needed attributes.
         gl.bindVertexArray(vao[index]);
 
-        bez = config[i].bezier
-        const b = !bez ? [0,0] 
+        const b = !config[i].bezier ? [0,0] 
         : bezier(config[i].bezierT, 
           {x: config[i].bezierX1, y:config[i].bezierY1},
           {x: config[i].bezierX2, y:config[i].bezierY2},
           {x: config[i].bezierX3, y:config[i].bezierY3},
           {x: config[i].bezierX4, y:config[i].bezierY4})
 
+        /* const p = !config[i].pointRotation ? [0,0,0] 
+        : pointRotation(config[i].statusPointRotation, 
+          {x: config[i].rotatePointX, y:config[i].rotatePointY, z:config[i].rotatePointZ}) */
+
+    
         uniforms[index].u_matrix = computeMatrix(
           viewProjectionMatrix,
           {x: config[i].translationX, y: config[i].translationY, z: config[i].translationZ},
           {x: config[i].rotateX, y: config[i].rotateY, z: config[i].rotateZ},
-          config[i].scale, config[i].bezier, {x: b[0], y:b[1]}
+          config[i].scale, {bool:config[i].bezier, x: b[0], y:b[1]},
+          {bool: config[i].pointRotation, diameter: config[i].diameter, statusPointRotation: config[i].statusPointRotation }
+          //{bool: config[i].pointRotation, x: p[0], y: p[1] }
         );
-
+        
+        //animação da rotação no ponto
+        //config[0].translationX = Math.sin(degToRad(time*(50)))*50
+        //config[0].translationY = Math.cos(degToRad(time*(50)))*50
         // Set the uniforms we just computed
         twgl.setUniforms(meshProgramInfo, uniforms[index]);
 

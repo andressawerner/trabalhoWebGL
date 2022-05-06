@@ -65,3 +65,9 @@ const bezier = (t, p1, p2, p3, p4) => {
             ((p4.y) * t * t * t);
   return [x, y];
 }
+
+const pointRotation = (status, points) => {
+  //rotação no ponto
+
+  return [0, 0, 0];
+}

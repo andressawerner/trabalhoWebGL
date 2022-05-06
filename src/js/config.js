@@ -1,7 +1,16 @@
+var time = 0.005;
+
+
 var config = [{ 
   rotateX: degToRad(20), 
   rotateY: degToRad(20), 
   rotateZ: degToRad(20), 
+  pointRotation: false,
+  diameter: 10,
+  statusPointRotation: 90,
+  rotatePointX: degToRad(20), 
+  rotatePointY: degToRad(20), 
+  rotatePointZ: degToRad(20), 
   translationX: 0, 
   translationY: 0, 
   translationZ: 0,
@@ -16,6 +25,7 @@ var config = [{
   bezierY2: 30,
   bezierY3: 30,
   bezierY4: -30,
+  text: '',
 }];
 
 var cam = [{ 
@@ -25,7 +35,7 @@ var cam = [{
   translationX: 0, 
   translationY: 0, 
   translationZ: 100,
-  zoom: 1,
+  zoom: 60,
   lookAtX: 0,
   lookAtY: 0,
   lookAtZ: 0,
