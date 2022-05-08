@@ -87,6 +87,8 @@ function main() {
   loadGUI();
 
   function render(time) {
+
+    selectedCam = parseInt(camerasS.selected) - 1
     time *= 0.005;
     twgl.resizeCanvasToDisplaySize(gl.canvas);
 
@@ -97,7 +99,7 @@ function main() {
     var aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
     //var projectionMatrix = m4.perspective(fieldOfViewRadians, aspect, 1, 2000);
 
-    fieldOfViewRadians = degToRad(150 - cam[0].zoom);
+    fieldOfViewRadians = degToRad(150 - cam[selectedCam].zoom);
 
     var projectionMatrix = m4.perspective(fieldOfViewRadians, aspect, 1, 2000);
     // Compute the camera's matrix using look at.
@@ -105,34 +107,34 @@ function main() {
     //var target = [0, 0, 0];
     //var up = [0, 1, 0];
 
-    const b = !cam[0].bezier ? [0,0] 
-    : bezier(cam[0].bezierT, 
-      {x: cam[0].bezierX1, y:cam[0].bezierY1},
-      {x: cam[0].bezierX2, y:cam[0].bezierY2},
-      {x: cam[0].bezierX3, y:cam[0].bezierY3},
-      {x: cam[0].bezierX4, y:cam[0].bezierY4})
+    const b = !cam[selectedCam].bezier ? [0,0] 
+    : bezier(cam[selectedCam].bezierT, 
+      {x: cam[selectedCam].bezierX1, y:cam[selectedCam].bezierY1},
+      {x: cam[selectedCam].bezierX2, y:cam[selectedCam].bezierY2},
+      {x: cam[selectedCam].bezierX3, y:cam[selectedCam].bezierY3},
+      {x: cam[selectedCam].bezierX4, y:cam[selectedCam].bezierY4})
 
       if (!arrayIsEqual(b,[0,0])){
-        cam[0].translationX = b[0]
-        cam[0].translationY = b[1]
+        cam[selectedCam].translationX = b[0]
+        cam[selectedCam].translationY = b[1]
       }
 
-    var cameraPosition = [cam[0].translationX, cam[0].translationY, cam[0].translationZ]
+    var cameraPosition = [cam[selectedCam].translationX, cam[selectedCam].translationY, cam[selectedCam].translationZ]
 
     var target;
-    if(cam[0].lookingObject) {
+    if(cam[selectedCam].lookingObject) {
       target = [config[objectAcomp].translationX, config[objectAcomp].translationY, config[objectAcomp].translationZ]
     } else {
-      if (!arrayIsEqual(cameraPosition, cam[0].pTranslation)) {
+      if (!arrayIsEqual(cameraPosition, cam[selectedCam].pTranslation)) {
         target = [
-          cam[0].lookAtX + cam[0].translationX, 
-          cam[0].lookAtY + cam[0].translationY, 
-          cam[0].lookAtZ + cam[0].translationZ - 100
+          cam[selectedCam].lookAtX + cam[selectedCam].translationX, 
+          cam[selectedCam].lookAtY + cam[selectedCam].translationY, 
+          cam[selectedCam].lookAtZ + cam[selectedCam].translationZ - 100
         ];
-        //cam[0].pTranslation = cameraPosition
+        //cam[selectedCam].pTranslation = cameraPosition
         
       } else {
-        target = [cam[0].lookAtX, cam[0].lookAtY, cam[0].lookAtZ];
+        target = [cam[selectedCam].lookAtX, cam[selectedCam].lookAtY, cam[selectedCam].lookAtZ];
       }
       
     }
@@ -141,9 +143,9 @@ function main() {
 
     var cameraMatrix = m4.lookAt(cameraPosition, target, up);
 
-    cameraMatrix = m4.xRotate(cameraMatrix, cam[0].rotateX);
-    cameraMatrix = m4.yRotate(cameraMatrix, cam[0].rotateY);
-    cameraMatrix = m4.zRotate(cameraMatrix, cam[0].rotateZ);
+    cameraMatrix = m4.xRotate(cameraMatrix, cam[selectedCam].rotateX);
+    cameraMatrix = m4.yRotate(cameraMatrix, cam[selectedCam].rotateY);
+    cameraMatrix = m4.zRotate(cameraMatrix, cam[selectedCam].rotateZ);
 
     // Make a view matrix from the camera matrix.
     var viewMatrix = m4.inverse(cameraMatrix);

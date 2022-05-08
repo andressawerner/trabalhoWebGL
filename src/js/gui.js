@@ -82,9 +82,10 @@ const loadGUI = () => {
     count++;
     vectorFolderObjects.push(obj) 
     vectorObjects.push(formats[Math.floor(Math.random() * 3)]);
-    lookAt.add(looking, `Object ${count}`);
-    lookAcompanhar.add(lookingAcomp, `Object ${count}`);
-
+    for (i = 0; i < lookAt.length; i++){
+      lookAt[i].add(looking, `Object ${count}`);
+      lookAcompanhar[i].add(lookingAcomp, `Object ${count}`);
+    }
 
 
   }};
@@ -93,7 +94,94 @@ const loadGUI = () => {
 
 
   // BOTÕES CÂMERA
-  var camera = gui.addFolder('Câmera');
+
+    // BOTÃO ADD CÂMERA
+    var addCamera = { 'Add Camera': function(){
+
+      var camera = cameras.addFolder(`Câmera ${countCam + 1}`);
+  
+      cam.push({ 
+        rotateX: degToRad(0), 
+        rotateY: degToRad(0), 
+        rotateZ: degToRad(0), 
+        bezier: false,
+        bezierT: 0,
+        bezierX1: -60,
+        bezierX2: -60,
+        bezierX3: 50,
+        bezierX4: 50,
+        bezierY1: -30,
+        bezierY2: 30,
+        bezierY3: 30,
+        bezierY4: -30,
+        translationX: 0, 
+        translationY: 0, 
+        translationZ: 100,
+        zoom: 90,
+        lookAtX: 0,
+        lookAtY: 0,
+        lookAtZ: 0,
+        lookingObject: false,
+        pTranslation: [0, 0, 100]
+      });
+  
+      camera.add(cam[countCam], "zoom", 10, 150, 1);
+    
+      const rotate = camera.addFolder(`Rotação no Eixo`);
+      rotate.add(cam[countCam], "rotateX", -1, 1, 0.01).name('X');
+      rotate.add(cam[countCam], "rotateY", -1, 1, 0.01).name('Y');
+      rotate.add(cam[countCam], "rotateZ", -1, 1, 0.01).name('Z');
+    
+      const translation = camera.addFolder(`Translação Linear`);
+      translation.add(cam[countCam], "translationX", -100, 100, 0.01).name('X');
+      translation.add(cam[countCam], "translationY", -100, 100, 0.01).name('Y');
+      translation.add(cam[countCam], "translationZ", -100, 200, 0.01).name('Z');
+    
+      const bezier = camera.addFolder(`Translação Bezier`);
+      bezier.add(cam[countCam], "bezier").name('Bezier');
+      bezier.add(cam[countCam], "bezierT", 0, 1, 0.01).name('t');
+      bezier.add(cam[countCam], "bezierX1", -100, 100, 0.5).name('1: X');
+      bezier.add(cam[countCam], "bezierY1", -100, 100, 0.5).name('1: Y');
+    
+      bezier.add(cam[countCam], "bezierX2", -100, 100, 0.5).name('2: X');
+      bezier.add(cam[countCam], "bezierY2", -100, 100, 0.5).name('2: Y');
+    
+      bezier.add(cam[countCam], "bezierX3", -100, 100, 0.5).name('3: X');
+      bezier.add(cam[countCam], "bezierY3", -100, 100, 0.5).name('3: Y');
+    
+      bezier.add(cam[countCam], "bezierX4", -100, 100, 0.5).name('4: X');
+      bezier.add(cam[countCam], "bezierY4", -100, 100, 0.5).name('4: Y');
+    
+      lookAt[countCam] = camera.addFolder(`Olhar para`);
+    
+      let textFilter = 'Olhar para'
+      let nodeFiltered = Array.prototype.slice.call(document.querySelectorAll('.folder .title')).filter((arg) => arg.innerText == textFilter);
+      nodeFiltered[countCam].setAttribute('id', 'olhar_para');
+    
+      lookAcompanhar[countCam] = camera.addFolder(`Acompanhar`);
+    
+      textFilter = 'Acompanhar'
+      nodeFiltered = Array.prototype.slice.call(document.querySelectorAll('.folder .title')).filter((arg) => arg.innerText == textFilter);
+      nodeFiltered[countCam].setAttribute('id', 'acompanhar');
+  
+      for (i = 1; i <= count ; i++){
+        if (vectorObjects[i-1] != '') {
+          lookAt[countCam].add(looking, `Object ${i}`);
+          lookAcompanhar[countCam].add(lookingAcomp, `Object ${i}`);
+        }
+      }
+  
+      countCam++;
+  
+   }};
+
+  var cameras = gui.addFolder('Câmeras');
+
+  cameras.add(addCamera, 'Add Camera');
+
+  var selectCam = cameras.add(camerasS, "selected").name('Selecionar: ');
+
+  var camera = cameras.addFolder('Câmera 1');
 
   camera.add(cam[countCam], "zoom", 10, 150, 1);
 
@@ -122,16 +210,22 @@ const loadGUI = () => {
   bezier.add(cam[countCam], "bezierX4", -100, 100, 0.5).name('4: X');
   bezier.add(cam[countCam], "bezierY4", -100, 100, 0.5).name('4: Y');
 
-  var lookAt = camera.addFolder(`Olhar para`);
+  var lookAt = []
+  lookAt[0] = camera.addFolder(`Olhar para`);
 
   let textFilter = 'Olhar para'
   let nodeFiltered = Array.prototype.slice.call(document.querySelectorAll('.folder .title')).filter((arg) => arg.innerText == textFilter);
   nodeFiltered[0].setAttribute('id', 'olhar_para');
 
-  var lookAcompanhar = camera.addFolder(`Acompanhar`);
+  var lookAcompanhar = []
+  lookAcompanhar[0] = camera.addFolder(`Acompanhar`);
 
   textFilter = 'Acompanhar'
   nodeFiltered = Array.prototype.slice.call(document.querySelectorAll('.folder .title')).filter((arg) => arg.innerText == textFilter);
   nodeFiltered[0].setAttribute('id', 'acompanhar');
+  countCam++;
+  
+
+
 
 };

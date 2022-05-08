@@ -1,5 +1,5 @@
 var time = 0.005;
-var selectedCam = 0;
+var selectedCam = '1';
 
 var config = [{ 
   rotateX: degToRad(20), 
@@ -52,6 +52,10 @@ var cam = [{
   lookingObject: false,
   pTranslation: [0, 0, 100]
 }];
+
+var camerasS = {
+  selected: '1'
+};
 
 var objectAcomp = 0;
 
