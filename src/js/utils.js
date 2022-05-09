@@ -73,8 +73,59 @@ const bezier = (t, p1, p2, p3, p4) => {
   return [x, y];
 }
 
-const pointRotation = (status, points) => {
-  //rotação no ponto
+// função de deepClone copiada de: https://metring.com.br/clonar-objeto-em-javascript
+const deepClone = obj => {
+	// Se não for array ou objeto, retorna null
+	if (typeof obj !== 'object' || obj === null) {
+		return obj;
+	}
 
-  return [0, 0, 0];
+	let cloned, i;
+
+	// Handle: Date
+	if (obj instanceof Date) {
+		cloned = new Date(obj.getTime());
+		return cloned;
+	}
+
+	// Handle: array
+	if (obj instanceof Array) {
+		let l;
+		cloned = [];
+		for (i = 0, l = obj.length; i < l; i++) {
+			cloned[i] = deepClone(obj[i]);
+		}
+
+		return cloned;
+	}
+
+	// Handle: object
+	cloned = {};
+	for (i in obj) if (obj.hasOwnProperty(i)) {
+		cloned[i] = deepClone(obj[i]);
+	}
+
+	return cloned;
 }
+
+const addAni = (index) => {
+  animationConfig[index].object = index;
+  var copia = deepClone(animationConfig[index]);
+  animationObjects.push(copia);
+};
+
+const addAniCam = (index) => {
+  animationCam[index].object = index;
+  var copia = deepClone(animationCam[index]);
+  animationCameras.push(copia);
+};
+
+const animateObj = (index) => {
+  animationObjectPlay = index;
+  animationPlay = true;
+};
+
+const animateCam = (index) => {
+  animationCamIndex = index;
+  animationPlayCam = true;
+};

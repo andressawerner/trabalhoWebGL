@@ -1,5 +1,12 @@
 var time = 0.005;
 var selectedCam = '1';
+var animationObjects = [];
+var animationCameras = [];
+var animationPlay = false;
+var animationObjectPlay = 0;
+var timePassed = 0;
+var animationCamIndex = 0;
+var animationPlayCam = false;
 
 var config = [{ 
   rotateX: degToRad(20), 
@@ -28,6 +35,17 @@ var config = [{
   text: '',
 }];
 
+var animationConfig = [{ 
+  time: 1,
+  rotateX: 0, 
+  rotateY: 0, 
+  rotateZ: 0, 
+  translationX: 0, 
+  translationY: 0, 
+  translationZ: 0,
+  scale: 0,
+}];
+
 var cam = [{ 
   rotateX: degToRad(0), 
   rotateY: degToRad(0), 
@@ -51,6 +69,17 @@ var cam = [{
   lookAtZ: 0,
   lookingObject: false,
   pTranslation: [0, 0, 100]
+}];
+
+var animationCam = [{ 
+  time: 1,
+  rotateX: 0, 
+  rotateY: 0, 
+  rotateZ: 0, 
+  translationX: 0, 
+  translationY: 0, 
+  translationZ: 0,
+  scale: 0,
 }];
 
 var camerasS = {
@@ -164,3 +193,76 @@ var deleting = {
 },
 };
 
+
+var addAnimation = {
+  'Add Animation 1': function(){
+    addAni(0)
+  },
+  'Add Animation 2': function(){
+    addAni(1)
+  },
+  'Add Animation 3': function(){
+    addAni(2)
+  },
+  'Add Animation 4': function(){
+    addAni(3)
+  },
+  'Add Animation 5': function(){
+    addAni(4)
+  },
+
+}
+
+var addAnimationCam = {
+  'Add Animation 1': function(){
+    addAniCam(0)
+  },
+  'Add Animation 2': function(){
+    addAniCam(1)
+  },
+  'Add Animation 3': function(){
+    addAniCam(2)
+  },
+  'Add Animation 4': function(){
+    addAniCam(3)
+  },
+  'Add Animation 5': function(){
+    addAniCam(4)
+  },
+
+}
+
+var animate = {
+  'Animate Object 1': function(){
+    animateObj(0)
+  },
+  'Animate Object 2': function(){
+    animateObj(1)
+  },
+  'Animate Object 3': function(){
+    animateObj(2)
+  },
+  'Animate Object 4': function(){
+    animateObj(3)
+  },
+  'Animate Object 5': function(){
+    animateObj(4)
+  },
+
+  'Animate Camera 1': function(){
+    animateCam(0)
+  },
+  'Animate Camera 2': function(){
+    animateCam(1)
+  },
+  'Animate Camera 3': function(){
+    animateCam(2)
+  },
+  'Animate Camera 4': function(){
+    animateCam(3)
+  },
+  'Animate Camera 5': function(){
+    animateCam(4)
+  },
+
+}

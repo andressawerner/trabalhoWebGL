@@ -43,11 +43,9 @@ const loadGUI = () => {
       bezierY2: 30,
       bezierY3: 30,
       bezierY4: -30,
-      text: '',
     })
 
     obj.add(config[count], "scale", 0, 10, 0.1);
-    obj.add(config[count], "text");
 
     const rotate = obj.addFolder(`Rotação no Eixo`);
     rotate.add(config[count], "rotateX", 0, 20, 0.5).name('X');
@@ -79,6 +77,36 @@ const loadGUI = () => {
     bezier.add(config[count], "bezierX4", -100, 100, 0.5).name('4: X');
     bezier.add(config[count], "bezierY4", -100, 100, 0.5).name('4: Y');
 
+    const animation = obj.addFolder(`Animação`);
+    animationConfig.push({ 
+      time: 1,
+      rotateX: 0, 
+      rotateY: 0, 
+      rotateZ: 0, 
+      translationX: 0, 
+      translationY: 0, 
+      translationZ: 0,
+      scale: 0,
+    });
+
+    animation.add(animationConfig[count], "time", 1, 10, 0.1);
+    animation.add(animationConfig[count], "scale", -1, 1, 0.05);
+
+    const animationRotate = animation.addFolder(`Rotação no Eixo`);
+    animationRotate.add(animationConfig[count], "rotateX", -10, 10, 0.5).name('X');
+    animationRotate.add(animationConfig[count], "rotateY", -10, 10, 0.5).name('Y');
+    animationRotate.add(animationConfig[count], "rotateZ", -10, 10, 0.5).name('Z');
+
+    const animationTranslation = animation.addFolder(`Translação Linear`);
+    animationTranslation.add(animationConfig[count], "translationX", -10, 10, 0.5).name('X');
+    animationTranslation.add(animationConfig[count], "translationY", -10, 10, 0.5).name('Y');
+    animationTranslation.add(animationConfig[count], "translationZ", -10, 10, 0.5).name('Z');
+
+    animation.add(addAnimation, `Add Animation ${count + 1}`);
+
+    animation.add(animate, `Animate Object ${count + 1}`);
+
+
     count++;
     vectorFolderObjects.push(obj) 
     vectorObjects.push(formats[Math.floor(Math.random() * 3)]);
@@ -86,15 +114,11 @@ const loadGUI = () => {
       lookAt[i].add(looking, `Object ${count}`);
       lookAcompanhar[i].add(lookingAcomp, `Object ${count}`);
     }
-
-
   }};
 
   gui.add(addObject, 'Add Object');
 
-
   // BOTÕES CÂMERA
-
     // BOTÃO ADD CÂMERA
     var addCamera = { 'Add Camera': function(){
 
@@ -170,9 +194,37 @@ const loadGUI = () => {
           lookAcompanhar[countCam].add(lookingAcomp, `Object ${i}`);
         }
       }
+
+      const animation = camera.addFolder(`Animação`);
+      animationCam.push({ 
+        time: 1,
+        rotateX: 0, 
+        rotateY: 0, 
+        rotateZ: 0, 
+        translationX: 0, 
+        translationY: 0, 
+        translationZ: 0,
+        scale: 0,
+      });
+  
+      animation.add(animationCam[countCam], "time", 1, 10, 0.1);
+      animation.add(animationCam[countCam], "scale", -10, 10, 0.05).name('zoom');
+  
+      const animationRotate = animation.addFolder(`Rotação no Eixo`);
+      animationRotate.add(animationCam[countCam], "rotateX", -10, 10, 0.5).name('X');
+      animationRotate.add(animationCam[countCam], "rotateY", -10, 10, 0.5).name('Y');
+      animationRotate.add(animationCam[countCam], "rotateZ", -10, 10, 0.5).name('Z');
+  
+      const animationTranslation = animation.addFolder(`Translação Linear`);
+      animationTranslation.add(animationCam[countCam], "translationX", -10, 10, 0.5).name('X');
+      animationTranslation.add(animationCam[countCam], "translationY", -10, 10, 0.5).name('Y');
+      animationTranslation.add(animationCam[countCam], "translationZ", -10, 10, 0.5).name('Z');
+  
+      animation.add(addAnimationCam, `Add Animation ${countCam + 1}`);
+  
+      animation.add(animate, `Animate Camera ${countCam + 1}`);
   
       countCam++;
-  
    }};
 
   var cameras = gui.addFolder('Câmeras');
@@ -223,6 +275,36 @@ const loadGUI = () => {
   textFilter = 'Acompanhar'
   nodeFiltered = Array.prototype.slice.call(document.querySelectorAll('.folder .title')).filter((arg) => arg.innerText == textFilter);
   nodeFiltered[0].setAttribute('id', 'acompanhar');
+
+  const animation = camera.addFolder(`Animação`);
+  animationCam.push({ 
+    time: 1,
+    rotateX: 0, 
+    rotateY: 0, 
+    rotateZ: 0, 
+    translationX: 0, 
+    translationY: 0, 
+    translationZ: 0,
+    scale: 0,
+  });
+
+  animation.add(animationCam[countCam], "time", 1, 10, 0.1);
+  animation.add(animationCam[countCam], "scale", -10, 10, 0.05).name('zoom');
+
+  const animationRotate = animation.addFolder(`Rotação no Eixo`);
+  animationRotate.add(animationCam[countCam], "rotateX", -10, 10, 0.5).name('X');
+  animationRotate.add(animationCam[countCam], "rotateY", -10, 10, 0.5).name('Y');
+  animationRotate.add(animationCam[countCam], "rotateZ", -10, 10, 0.5).name('Z');
+
+  const animationTranslation = animation.addFolder(`Translação Linear`);
+  animationTranslation.add(animationCam[countCam], "translationX", -10, 10, 0.5).name('X');
+  animationTranslation.add(animationCam[countCam], "translationY", -10, 10, 0.5).name('Y');
+  animationTranslation.add(animationCam[countCam], "translationZ", -10, 10, 0.5).name('Z');
+
+  animation.add(addAnimationCam, `Add Animation ${count + 1}`);
+
+  animation.add(animate, `Animate Camera ${count + 1}`);
+
   countCam++;
   
 

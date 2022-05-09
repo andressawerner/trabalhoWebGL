@@ -1,6 +1,8 @@
 function main() {
   const { gl, meshProgramInfo } = initializeWorld();
 
+  var then = 0;
+
   //const cubeTranslation = [0, 0, 0];
   var fieldOfViewRadians = degToRad(60);
 
@@ -86,10 +88,78 @@ function main() {
 
   loadGUI();
 
-  function render(time) {
+  function render(now) {
 
     selectedCam = parseInt(camerasS.selected) - 1
-    time *= 0.005;
+
+    //ANIMAÇÃO
+    now *= 0.001;
+    var deltaT = now - then;
+    then = now;
+
+    // OBJETO 
+    if (animationPlay){
+
+      const aO = animationObjects.filter((arg) => arg.object == animationObjectPlay)
+      let aT = aO[0].time; //3seg      //passed 2seg
+      let totalTime = aT;
+      let i = 0;
+      for (j = 1; j < aO.length; j++){
+        if (aT < timePassed) {
+          aT += aO[j].time
+          i = j
+        }
+        totalTime += aO[j].time
+      };
+      console.log(i)
+      config[animationObjectPlay].scale += (aO[i].scale * deltaT)
+      config[animationObjectPlay].rotateX += (aO[i].rotateX * deltaT)
+      config[animationObjectPlay].rotateY += (aO[i].rotateY * deltaT)
+      config[animationObjectPlay].rotateZ += (aO[i].rotateZ * deltaT)
+      config[animationObjectPlay].translationX += (aO[i].translationX * deltaT)
+      config[animationObjectPlay].translationY += (aO[i].translationY * deltaT)
+      config[animationObjectPlay].translationZ += (aO[i].translationZ * deltaT)
+
+      timePassed += deltaT
+      if (timePassed >= totalTime){
+        timePassed = 0;
+        animationObjectPlay = 0;
+        animationPlay = false;
+      }
+    }
+
+    //CAMERA
+    if (animationPlayCam){
+
+      const aO = animationCameras.filter((arg) => arg.object == animationCamIndex)
+      let aT = aO[0].time; //3seg      //passed 2seg
+      let totalTime = aT;
+      let i = 0;
+      for (j = 1; j < aO.length; j++){
+        if (aT < timePassed) {
+          aT += aO[j].time
+          i = j
+        }
+        totalTime += aO[j].time
+      };
+
+      cam[animationCamIndex].zoom += (aO[i].scale * deltaT)
+      cam[animationCamIndex].rotateX += (aO[i].rotateX * deltaT)
+      cam[animationCamIndex].rotateY += (aO[i].rotateY * deltaT)
+      cam[animationCamIndex].rotateZ += (aO[i].rotateZ * deltaT)
+      cam[animationCamIndex].translationX += (aO[i].translationX * deltaT)
+      cam[animationCamIndex].translationY += (aO[i].translationY * deltaT)
+      cam[animationCamIndex].translationZ += (aO[i].translationZ * deltaT)
+
+      timePassed += deltaT
+      if (timePassed >= totalTime){
+        timePassed = 0;
+        animationCamIndex = 0;
+        animationPlayCam = false;
+      }
+    }
+
+
     twgl.resizeCanvasToDisplaySize(gl.canvas);
 
     gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
@@ -102,10 +172,6 @@ function main() {
     fieldOfViewRadians = degToRad(150 - cam[selectedCam].zoom);
 
     var projectionMatrix = m4.perspective(fieldOfViewRadians, aspect, 1, 2000);
-    // Compute the camera's matrix using look at.
-    //var cameraPosition = [0, 0, 100];
-    //var target = [0, 0, 0];
-    //var up = [0, 1, 0];
 
     const b = !cam[selectedCam].bezier ? [0,0] 
     : bezier(cam[selectedCam].bezierT, 
@@ -178,11 +244,6 @@ function main() {
           {x: config[i].bezierX2, y:config[i].bezierY2},
           {x: config[i].bezierX3, y:config[i].bezierY3},
           {x: config[i].bezierX4, y:config[i].bezierY4})
-
-        /* const p = !config[i].pointRotation ? [0,0,0] 
-        : pointRotation(config[i].statusPointRotation, 
-          {x: config[i].rotatePointX, y:config[i].rotatePointY, z:config[i].rotatePointZ}) */
-
     
         uniforms[index].u_matrix = computeMatrix(
           viewProjectionMatrix,
