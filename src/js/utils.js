@@ -4,12 +4,12 @@ const radToDeg = (r) => (r * 180) / Math.PI;
 
 const localObject = (index, a) => {
   if (config[index]){
-    cam[0].lookAtX = config[index].translationX
-    cam[0].lookAtY = config[index].translationY
-    cam[0].lookAtZ = config[index].translationZ
+    cam[selectedCam].lookAtX = config[index].translationX
+    cam[selectedCam].lookAtY = config[index].translationY
+    cam[selectedCam].lookAtZ = config[index].translationZ
   }
   objectAcomp = index
-  cam[0].lookingObject = a
+  cam[selectedCam].lookingObject = a
 };
 
 const deleteObject = (index) => {
@@ -39,11 +39,11 @@ const deleteObject = (index) => {
     }
 
 
-    if(cam[0].lookingObject && objectAcomp == index) {
-      cam[0].lookAtX = config[index].translationX
-      cam[0].lookAtY = config[index].translationY
-      cam[0].lookAtZ = config[index].translationZ
-      cam[0].lookingObject = false
+    if(cam[selectedCam].lookingObject && objectAcomp == index) {
+      cam[selectedCam].lookAtX = config[index].translationX
+      cam[selectedCam].lookAtY = config[index].translationY
+      cam[selectedCam].lookAtZ = config[index].translationZ
+      cam[selectedCam].lookingObject = false
     }
 
 };
