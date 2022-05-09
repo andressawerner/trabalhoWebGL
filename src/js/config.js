@@ -1,5 +1,5 @@
 var time = 0.005;
-var selectedCam = '1';
+var selectedCam = 1;
 var animationObjects = [];
 var animationCameras = [];
 var animationPlay = false;

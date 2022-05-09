@@ -52,10 +52,6 @@ function main() {
   });
 
   function computeMatrix(viewProjectionMatrix, linearTranslation, axisRotation, scale, bezier, pointRotation) {
-    /* if(config.circulo == true){
-      cubeTX = Math.sin(degToRad(time*(config.Cvel)))*config.Csize
-      cubeTY = Math.cos(degToRad(time*(config.Cvel)))*config.Csize
-    } */
     
     let translationX = bezier.bool? 
       linearTranslation.x + bezier.x
@@ -90,7 +86,11 @@ function main() {
 
   function render(now) {
 
-    selectedCam = parseInt(camerasS.selected) - 1
+    const c = parseInt(camerasS.selected)
+    if (!isNaN(c)){
+      var copy = deepClone(camerasS)
+      selectedCam = parseInt(copy.selected) - 1
+    }
 
     //ANIMAÇÃO
     now *= 0.001;
@@ -111,7 +111,7 @@ function main() {
         }
         totalTime += aO[j].time
       };
-      console.log(i)
+
       config[animationObjectPlay].scale += (aO[i].scale * deltaT)
       config[animationObjectPlay].rotateX += (aO[i].rotateX * deltaT)
       config[animationObjectPlay].rotateY += (aO[i].rotateY * deltaT)
@@ -251,12 +251,8 @@ function main() {
           {x: config[i].rotateX, y: config[i].rotateY, z: config[i].rotateZ},
           config[i].scale, {bool:config[i].bezier, x: b[0], y:b[1]},
           {bool: config[i].pointRotation, diameter: config[i].diameter, statusPointRotation: config[i].statusPointRotation }
-          //{bool: config[i].pointRotation, x: p[0], y: p[1] }
         );
-        
-        //animação da rotação no ponto
-        //config[0].translationX = Math.sin(degToRad(time*(50)))*50
-        //config[0].translationY = Math.cos(degToRad(time*(50)))*50
+
         // Set the uniforms we just computed
         twgl.setUniforms(meshProgramInfo, uniforms[index]);
 
