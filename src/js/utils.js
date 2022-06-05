@@ -73,7 +73,6 @@ const bezier = (t, p1, p2, p3, p4) => {
   return [x, y];
 }
 
-// função de deepClone copiada de: https://metring.com.br/clonar-objeto-em-javascript
 const deepClone = obj => {
 	// Se não for array ou objeto, retorna null
 	if (typeof obj !== 'object' || obj === null) {
