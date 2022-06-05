@@ -191,6 +191,9 @@ var deleting = {
 'Delete Object 10': function(){
   deleteObject(9)
 },
+'Delete Object 11': function(){
+  deleteObject(10)
+},
 };
 
 
@@ -210,6 +213,25 @@ var addAnimation = {
   'Add Animation 5': function(){
     addAni(4)
   },
+  'Add Animation 6': function(){
+    addAni(5)
+  },
+  'Add Animation 7': function(){
+    addAni(6)
+  },
+  'Add Animation 8': function(){
+    addAni(7)
+  },
+  'Add Animation 9': function(){
+    addAni(8)
+  },
+  'Add Animation 10': function(){
+    addAni(9)
+  },
+  'Add Animation 11': function(){
+    addAni(10)
+  },
+
 
 }
 
@@ -229,7 +251,24 @@ var addAnimationCam = {
   'Add Animation 5': function(){
     addAniCam(4)
   },
-
+  'Add Animation 6': function(){
+    addAniCam(5)
+  },
+  'Add Animation 7': function(){
+    addAniCam(6)
+  },
+  'Add Animation 8': function(){
+    addAniCam(7)
+  },
+  'Add Animation 9': function(){
+    addAniCam(8)
+  },
+  'Add Animation 10': function(){
+    addAniCam(9)
+  },
+  'Add Animation 11': function(){
+    addAniCam(10)
+  },
 }
 
 var animate = {
@@ -247,6 +286,24 @@ var animate = {
   },
   'Animate Object 5': function(){
     animateObj(4)
+  },
+  'Animate Object 6': function(){
+    animateObj(5)
+  },
+  'Animate Object 7': function(){
+    animateObj(6)
+  },
+  'Animate Object 8': function(){
+    animateObj(7)
+  },
+  'Animate Object 9': function(){
+    animateObj(8)
+  },
+  'Animate Object 10': function(){
+    animateObj(9)
+  },
+  'Animate Object 11': function(){
+    animateObj(10)
   },
 
   'Animate Camera 1': function(){
