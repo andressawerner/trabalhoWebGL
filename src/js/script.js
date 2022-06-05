@@ -1,14 +1,30 @@
-function main() {
+async function main() {
   const { gl, meshProgramInfo } = initializeWorld();
 
   var then = 0;
+
+  //Arquivo do peixe 1
+  const response = await fetch('fishes/fish1/13007_Blue-Green_Reef_Chromis_v2_l3.obj');  
+  const text = await response.text();
+  const data = parseOBJ(text);
+
+  //Arquivo do peixe 2
+  const response2 = await fetch('fishes/fish2/13009_Coral_Beauty_Angelfish_v1_l3.obj');  
+  const text2 = await response2.text();
+  const data2 = parseOBJ(text2);
+
+  //Arquivo do peixe 3
+  const response3 = await fetch('fishes/fish3/13016_Yellowtai_ Damselfish_v2_l3.obj');  
+  const text3 = await response3.text();
+  const data3 = parseOBJ(text3);
+  //Esse data entra no createBufferInfoFromArrays como segundo argumento da função
 
   //const cubeTranslation = [0, 0, 0];
   var fieldOfViewRadians = degToRad(60);
 
   // CUBO
   const bufferInfo = []
-  bufferInfo.push(flattenedPrimitives.createCubeBufferInfo(gl, 20));
+  bufferInfo.push(twgl.createBufferInfoFromArrays(gl, data));
 
   const vao = []
   vao.push(twgl.createVAOFromBufferInfo(
@@ -24,7 +40,7 @@ function main() {
   });
 
   // ESFERA
-  bufferInfo.push(flattenedPrimitives.createSphereBufferInfo(gl, 10, 12, 6));
+  bufferInfo.push(twgl.createBufferInfoFromArrays(gl, data2));
 
   vao.push(twgl.createVAOFromBufferInfo(
     gl, 
@@ -33,12 +49,12 @@ function main() {
   ));
 
   uniforms.push({
-    u_colorMult: [0.8, 1, 0.5, 1],
+    u_colorMult: [1, 0.5, 0.5, 1],
     u_matrix: m4.identity(),
   });
 
   // CONE
-  bufferInfo.push(flattenedPrimitives.createTruncatedConeBufferInfo(gl, 10, 0, 20, 12, 1, true, false));
+  bufferInfo.push(twgl.createBufferInfoFromArrays(gl, data3));
 
   vao.push(twgl.createVAOFromBufferInfo(
     gl, 
@@ -47,7 +63,7 @@ function main() {
   ));
 
   uniforms.push({
-    u_colorMult: [0.5, 0.5, 1, 1],
+    u_colorMult: [1, 0.5, 0.5, 1],
     u_matrix: m4.identity(),
   });
 
