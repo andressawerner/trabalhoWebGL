@@ -1,6 +1,39 @@
 async function main() {
   const { gl, meshProgramInfo } = initializeWorld();
 
+  function load_Image(url, callback) {
+    var image = new Image();
+    image.src = url;
+    image.onload = callback;
+    return image;
+  }
+
+  function loadImages(urls, callback) {
+    var images = [];
+    var imagesToLoad = urls.length;
+   
+    // Called each time an image finished loading.
+    var onImageLoad = function() {
+      --imagesToLoad;
+      // If all the images are loaded call the callback.
+      if (imagesToLoad == 0) {
+        callback(images);
+      }
+    };
+   
+    for (var ii = 0; ii < imagesToLoad; ++ii) {
+      var image = load_Image(urls[ii], onImageLoad);
+      images.push(image);
+    }
+  }
+
+  // function main() {
+  //   loadImages([
+  //     "resources/leaves.jpg",
+  //     "resources/star.jpg",
+  //   ], render);
+  // }
+
   var then = 0;
 
   //Arquivo do peixe 1
@@ -19,7 +52,6 @@ async function main() {
   const data3 = parseOBJ(text3);
   //Esse data entra no createBufferInfoFromArrays como segundo argumento da função
 
-  //const cubeTranslation = [0, 0, 0];
   var fieldOfViewRadians = degToRad(60);
 
   // CUBO
@@ -240,13 +272,13 @@ async function main() {
       const random = vectorObjects[i]
       let index = 10
       switch (random){
-        case 'cube':
+        case 'fish1':
           index = 0;
         break;
-        case 'sphere':
+        case 'fish2':
           index = 1
         break;
-        case 'cone':
+        case 'fish3':
           index = 2
         break;
       }

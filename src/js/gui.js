@@ -1,7 +1,7 @@
 
 var vectorObjects = []
 var vectorFolderObjects = []
-var formats = ['cube', 'sphere', 'cone']
+var formats = ['fish1', 'fish2', 'fish3']
 
 var button = { 
   clickme: 0,
@@ -307,7 +307,111 @@ const loadGUI = () => {
 
   countCam++;
   
+  function addFishDefault(idFish, scale, translationX){
+
+    const obj = gui.addFolder(`Object ${count + 1}`);
+
+    obj.add(deleting, 'Delete Object ' + (count+1));
+
+    config.push({ 
+     rotateX: degToRad(20), 
+     rotateY: degToRad(20), 
+     rotateZ: degToRad(20), 
+     pointRotation: false,
+     diameter: 0,
+     statusPointRotation: 90,
+     rotatePointX: degToRad(20), 
+     rotatePointY: degToRad(20), 
+     rotatePointZ: degToRad(20), 
+     translationX: translationX, 
+     translationY: 0, 
+     translationZ: 0,
+     scale: scale,
+     bezier: false,
+     bezierT: 0,
+     bezierX1: -60,
+     bezierX2: -60,
+     bezierX3: 50,
+     bezierX4: 50,
+     bezierY1: -30,
+     bezierY2: 30,
+     bezierY3: 30,
+     bezierY4: -30,
+   })
+
+   obj.add(config[count], "scale", 0, 10, 0.1);
+
+   const rotate = obj.addFolder(`Rotação no Eixo`);
+   rotate.add(config[count], "rotateX", 0, 20, 0.5).name('X');
+   rotate.add(config[count], "rotateY", 0, 20, 0.5).name('Y');
+   rotate.add(config[count], "rotateZ", 0, 20, 0.5).name('Z');
+
+   const rotatePoint = obj.addFolder(`Rotação no Ponto`);
+   rotatePoint.add(config[count], "pointRotation").name('Ativar');
+   rotatePoint.add(config[count], "diameter", 1, 100, 2).name('Diâmetro');
+   rotatePoint.add(config[count], "statusPointRotation", -360, 360, 2).name('Status');
+
+   const translation = obj.addFolder(`Translação Linear`);
+   translation.add(config[count], "translationX", -100, 100, 0.5).name('X');
+   translation.add(config[count], "translationY", -100, 100, 0.5).name('Y');
+   translation.add(config[count], "translationZ", -100, 100, 0.5).name('Z');
+
+   const bezier = obj.addFolder(`Translação Bezier`);
+   bezier.add(config[count], "bezier").name('Bezier');
+   bezier.add(config[count], "bezierT", 0, 1, 0.01).name('t');
+   bezier.add(config[count], "bezierX1", -100, 100, 0.5).name('1: X');
+   bezier.add(config[count], "bezierY1", -100, 100, 0.5).name('1: Y');
+
+   bezier.add(config[count], "bezierX2", -100, 100, 0.5).name('2: X');
+   bezier.add(config[count], "bezierY2", -100, 100, 0.5).name('2: Y');
+
+   bezier.add(config[count], "bezierX3", -100, 100, 0.5).name('3: X');
+   bezier.add(config[count], "bezierY3", -100, 100, 0.5).name('3: Y');
+
+   bezier.add(config[count], "bezierX4", -100, 100, 0.5).name('4: X');
+   bezier.add(config[count], "bezierY4", -100, 100, 0.5).name('4: Y');
+
+   const animation = obj.addFolder(`Animação`);
+   animationConfig.push({ 
+     time: 1,
+     rotateX: 0, 
+     rotateY: 0, 
+     rotateZ: 0, 
+     translationX: 0, 
+     translationY: 0, 
+     translationZ: 0,
+     scale: 0,
+   });
+
+   animation.add(animationConfig[count], "time", 1, 10, 0.1);
+   animation.add(animationConfig[count], "scale", -1, 1, 0.05);
+
+   const animationRotate = animation.addFolder(`Rotação no Eixo`);
+   animationRotate.add(animationConfig[count], "rotateX", -10, 10, 0.5).name('X');
+   animationRotate.add(animationConfig[count], "rotateY", -10, 10, 0.5).name('Y');
+   animationRotate.add(animationConfig[count], "rotateZ", -10, 10, 0.5).name('Z');
+
+   const animationTranslation = animation.addFolder(`Translação Linear`);
+   animationTranslation.add(animationConfig[count], "translationX", -10, 10, 0.5).name('X');
+   animationTranslation.add(animationConfig[count], "translationY", -10, 10, 0.5).name('Y');
+   animationTranslation.add(animationConfig[count], "translationZ", -10, 10, 0.5).name('Z');
+
+   animation.add(addAnimation, `Add Animation ${count + 1}`);
+
+   animation.add(animate, `Animate Object ${count + 1}`);
 
 
+   count++;
+   vectorFolderObjects.push(obj) 
+   vectorObjects.push(idFish);
+   for (i = 0; i < lookAt.length; i++){
+     lookAt[i].add(looking, `Object ${count}`);
+     lookAcompanhar[i].add(lookingAcomp, `Object ${count}`);
+   }
+  }
+
+  addFishDefault('fish1', 20, 0);
+  addFishDefault('fish2', 10, 80);
+  addFishDefault('fish3', 0, 0);
 
 };
