@@ -172,7 +172,7 @@ async function main() {
       if (timePassed >= totalTime){
         timePassed = 0;
         animationObjectPlay = 0;
-        animationPlay = false;
+        //animationPlay = false;
       }
     }
 

@@ -48,9 +48,9 @@ const loadGUI = () => {
     obj.add(config[count], "scale", 0, 10, 0.1);
 
     const rotate = obj.addFolder(`Rotação no Eixo`);
-    rotate.add(config[count], "rotateX", 0, 20, 0.5).name('X');
-    rotate.add(config[count], "rotateY", 0, 20, 0.5).name('Y');
-    rotate.add(config[count], "rotateZ", 0, 20, 0.5).name('Z');
+    rotate.add(config[count], "rotateX", 0, 20, 0.1).name('X');
+    rotate.add(config[count], "rotateY", 0, 20, 0.1).name('Y');
+    rotate.add(config[count], "rotateZ", 0, 20, 0.1).name('Z');
 
     const rotatePoint = obj.addFolder(`Rotação no Ponto`);
     rotatePoint.add(config[count], "pointRotation").name('Ativar');
@@ -93,9 +93,9 @@ const loadGUI = () => {
     animation.add(animationConfig[count], "scale", -1, 1, 0.05);
 
     const animationRotate = animation.addFolder(`Rotação no Eixo`);
-    animationRotate.add(animationConfig[count], "rotateX", -10, 10, 0.5).name('X');
-    animationRotate.add(animationConfig[count], "rotateY", -10, 10, 0.5).name('Y');
-    animationRotate.add(animationConfig[count], "rotateZ", -10, 10, 0.5).name('Z');
+    animationRotate.add(animationConfig[count], "rotateX", -10, 10, 0.1).name('X');
+    animationRotate.add(animationConfig[count], "rotateY", -10, 10, 0.1).name('Y');
+    animationRotate.add(animationConfig[count], "rotateZ", -10, 10, 0.1).name('Z');
 
     const animationTranslation = animation.addFolder(`Translação Linear`);
     animationTranslation.add(animationConfig[count], "translationX", -10, 10, 0.5).name('X');
@@ -307,16 +307,16 @@ const loadGUI = () => {
 
   countCam++;
   
-  function addFishDefault(idFish, scale, translationX){
+  function addFishDefault(idFish, scale, [translationX, traslationY, translationZ], [rotateX, rotateY, rotateZ]){
 
     const obj = gui.addFolder(`Object ${count + 1}`);
 
     obj.add(deleting, 'Delete Object ' + (count+1));
 
     config.push({ 
-     rotateX: degToRad(20), 
-     rotateY: degToRad(20), 
-     rotateZ: degToRad(20), 
+     rotateX: rotateX, 
+     rotateY: rotateY, 
+     rotateZ: rotateZ, 
      pointRotation: false,
      diameter: 0,
      statusPointRotation: 90,
@@ -324,8 +324,8 @@ const loadGUI = () => {
      rotatePointY: degToRad(20), 
      rotatePointZ: degToRad(20), 
      translationX: translationX, 
-     translationY: 0, 
-     translationZ: 0,
+     translationY: traslationY, 
+     translationZ: translationZ,
      scale: scale,
      bezier: false,
      bezierT: 0,
@@ -342,9 +342,9 @@ const loadGUI = () => {
    obj.add(config[count], "scale", 0, 10, 0.1);
 
    const rotate = obj.addFolder(`Rotação no Eixo`);
-   rotate.add(config[count], "rotateX", 0, 20, 0.5).name('X');
-   rotate.add(config[count], "rotateY", 0, 20, 0.5).name('Y');
-   rotate.add(config[count], "rotateZ", 0, 20, 0.5).name('Z');
+   rotate.add(config[count], "rotateX", 0, 20, 0.1).name('X');
+   rotate.add(config[count], "rotateY", 0, 20, 0.1).name('Y');
+   rotate.add(config[count], "rotateZ", 0, 20, 0.1).name('Z');
 
    const rotatePoint = obj.addFolder(`Rotação no Ponto`);
    rotatePoint.add(config[count], "pointRotation").name('Ativar');
@@ -410,8 +410,51 @@ const loadGUI = () => {
    }
   }
 
-  addFishDefault('fish1', 20, 0);
-  addFishDefault('fish2', 10, 80);
-  addFishDefault('fish3', 0, 0);
+  addFishDefault('fish1', 20, [0, degToRad(20), degToRad(20)], [degToRad(20), degToRad(20), degToRad(20)]);
+  addFishDefault('fish2', 10, [-28, -37, 0], [4.3, 6.3, 4.7]);
+  addFishDefault('fish3', 0, [0,0,0], [0,0,0]);
+
+  animationObjects.push({ 
+    object:0,
+    time: 12,
+    rotateX: 0, 
+    rotateY: 0, 
+    rotateZ: 0, 
+    translationX: 10, 
+    translationY: 0, 
+    translationZ: 0,
+    scale: 0,
+  },{ 
+    object: 0,
+    time: 2,
+    rotateX: 0, 
+    rotateY: 0, 
+    rotateZ: 1.5, 
+    translationX: 0, 
+    translationY: 0, 
+    translationZ: 0,
+    scale: 0,
+  },{ 
+    object: 0,
+    time: 12,
+    rotateX: 0, 
+    rotateY: 0, 
+    rotateZ: 0, 
+    translationX: -10, 
+    translationY: 0, 
+    translationZ: 0,
+    scale: 0,
+  },{ 
+    object: 0,
+    time: 2,
+    rotateX: 0, 
+    rotateY: 0, 
+    rotateZ: -1.3, 
+    translationX: 0, 
+    translationY: 0, 
+    translationZ: 0,
+    scale: 0,
+  });
+  animationPlay = true;
 
 };

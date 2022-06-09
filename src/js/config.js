@@ -9,9 +9,9 @@ var animationCamIndex = 0;
 var animationPlayCam = false;
 
 var config = [{ 
-  rotateX: degToRad(20), 
-  rotateY: degToRad(20), 
-  rotateZ: degToRad(20), 
+  rotateX: 8, 
+  rotateY: 3.2, 
+  rotateZ: 4.5, 
   pointRotation: false,
   diameter: 10,
   statusPointRotation: 90,
@@ -36,6 +36,24 @@ var config = [{
 }];
 
 var animationConfig = [{ 
+  time: 10,
+  rotateX: 1, 
+  rotateY: 0, 
+  rotateZ: 0, 
+  translationX: 10, 
+  translationY: 0, 
+  translationZ: 0,
+  scale: 0,
+},{ 
+  time: 1,
+  rotateX: 0, 
+  rotateY: 0, 
+  rotateZ: 0, 
+  translationX: 0, 
+  translationY: 0, 
+  translationZ: 0,
+  scale: 0,
+},{ 
   time: 1,
   rotateX: 0, 
   rotateY: 0, 
