@@ -11,6 +11,7 @@ var timePassed1 = 0;
 var timePassed2 = 0;
 var animationCamIndex = 0;
 var animationPlayCam = false;
+var numFishes = 3
 
 var config = [{ 
   rotateX: 8, 

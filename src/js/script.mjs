@@ -7,27 +7,31 @@ async function main() {
   const { gl, meshProgramInfo } = initializeWorld();
 
   var then = 0;
-
+  const mtl = [];
+  const obj = [];
   //Arquivo do peixe 1
-  const resource_path = "./fishes/fish1"
-  const object_path = "./fishes/fish1/13007_Blue-Green_Reef_Chromis_v2_l3"
+  const resource_path = []
+  const object_path = []
 
-  const obj = await objLoader.process(`${object_path}.obj`);
-  const mtl = await mtlLoader.process(`${object_path}.mtl`);
+  resource_path.push("./fishes/fish1")
+  object_path.push("./fishes/fish1/13007_Blue-Green_Reef_Chromis_v2_l3")
+
+  obj[0] = await objLoader.process(`${object_path[0]}.obj`);
+  mtl[0] = await mtlLoader.process(`${object_path[0]}.mtl`);
 
   //Arquivo do peixe 2
-  const resource_path2 = "./fishes/fish2"
-  const object_path2 = "./fishes/fish2/13009_Coral_Beauty_Angelfish_v1_l3"
+  resource_path.push("./fishes/fish2")
+  object_path.push("./fishes/fish2/13009_Coral_Beauty_Angelfish_v1_l3")
 
-  const obj2 = await objLoader.process(`${object_path2}.obj`);
-  const mtl2 = await mtlLoader.process(`${object_path2}.mtl`);
+  obj[1] = await objLoader.process(`${object_path[1]}.obj`);
+  mtl[1] = await mtlLoader.process(`${object_path[1]}.mtl`);
 
   //Arquivo do peixe 3
-  const resource_path3 = "./fishes/fish3"
-  const object_path3 = "./fishes/fish3/13016_Yellowtai_ Damselfish_v2_l3"
+  resource_path.push("./fishes/fish3")
+  object_path.push("./fishes/fish3/13016_Yellowtai_ Damselfish_v2_l3")
 
-  const obj3 = await objLoader.process(`${object_path3}.obj`);
-  const mtl3 = await mtlLoader.process(`${object_path3}.mtl`);
+  obj[2] = await objLoader.process(`${object_path[2]}.obj`);
+  mtl[2] = await mtlLoader.process(`${object_path[2]}.mtl`);
 
 
   //Geral para os três peixes
@@ -50,71 +54,25 @@ async function main() {
   //Texturas do Peixe 1
   // Se existem texturas a serem carregadas (diretivas terminando em Map no MTL)
   // devemos carregá-las e associá-las devidamente
-  for (const material of Object.values(mtl)) {
-    Object.entries(material)
-      .filter(([key]) => key.endsWith('Map'))
-      .forEach(([key, filename]) => {
-        let texture = textures[filename];
-        if (!texture) {
-          texture = textureManager.createTexture(gl, `${resource_path}/${filename}`);
-          textures[filename] = texture;
-        }
-        material[key] = texture;
-      });
-  }
-
-  // Para cada elemento no nosso OBJ, definimos sua geometria e pegamos o material associado
+  let indicadorPeixe = 0
   const parts = []
-  parts.push(obj.geometries.map(
-    ({ material, data }) => {
-
-      // Se temos coordenadas de textura e normais, tentamos calcular as tangentes
-      if (data.texcoord && data.normal) {
-        data.tangent = trigonometry.generateTangents(data.position, data.texcoord);
-      } else {
-        data.tangent = { value: [1, 0, 0] };
-      }
-
-      // Se temos cor nos dados, use a cor; se não, é branco
-      if (data.color) {
-        if (data.position.length === data.color.length) {
-          data.color = { numComponents: 3, data: data.color };
-        }
-      } else {
-        data.color = { value: [1, 1, 1, 1] };
-      }
-
-      // Joga tudo no formato pro buffer
-      const bufferInfo = webglUtils.createBufferInfoFromArrays(gl, data);
-
-      return {
-        material: {
-          ...defaultMaterial,
-          ...mtl[material],
-        },
-        bufferInfo: bufferInfo,
-      };
+  while (indicadorPeixe < numFishes) {
+    for (const material of Object.values(mtl[indicadorPeixe])) {
+      Object.entries(material)
+        .filter(([key]) => key.endsWith('Map'))
+        .forEach(([key, filename]) => {
+          let texture = textures[filename];
+          if (!texture) {
+            texture = textureManager.createTexture(gl, `${resource_path[indicadorPeixe]}/${filename}`);
+            textures[filename] = texture;
+          }
+          material[key] = texture;
+        });
     }
-  ));
-
-  //Texturas do Peixe 2
-  // Se existem texturas a serem carregadas (diretivas terminando em Map no MTL)
-  // devemos carregá-las e associá-las devidamente
-  for (const material of Object.values(mtl2)) {
-    Object.entries(material)
-      .filter(([key]) => key.endsWith('Map'))
-      .forEach(([key, filename]) => {
-        let texture = textures[filename];
-        if (!texture) {
-          texture = textureManager.createTexture(gl, `${resource_path2}/${filename}`);
-          textures[filename] = texture;
-        }
-        material[key] = texture;
-      });
-  }
 
   // Para cada elemento no nosso OBJ, definimos sua geometria e pegamos o material associado
-  parts.push(obj2.geometries.map(
+  
+  parts.push(obj[indicadorPeixe].geometries.map(
     ({ material, data }) => {
 
       // Se temos coordenadas de textura e normais, tentamos calcular as tangentes
@@ -139,61 +97,114 @@ async function main() {
       return {
         material: {
           ...defaultMaterial,
-          ...mtl[material],
+          ...mtl[indicadorPeixe][material],
         },
         bufferInfo: bufferInfo,
       };
     }
   ));
-
-  //Texturas do Peixe 3
-  // Se existem texturas a serem carregadas (diretivas terminando em Map no MTL)
-  // devemos carregá-las e associá-las devidamente
-  for (const material of Object.values(mtl3)) {
-    Object.entries(material)
-      .filter(([key]) => key.endsWith('Map'))
-      .forEach(([key, filename]) => {
-        let texture = textures[filename];
-        if (!texture) {
-          texture = textureManager.createTexture(gl, `${resource_path3}/${filename}`);
-          textures[filename] = texture;
-        }
-        material[key] = texture;
-      });
+    indicadorPeixe++;
   }
 
-  // Para cada elemento no nosso OBJ, definimos sua geometria e pegamos o material associado
-  parts.push(obj3.geometries.map(
-    ({ material, data }) => {
 
-      // Se temos coordenadas de textura e normais, tentamos calcular as tangentes
-      if (data.texcoord && data.normal) {
-        data.tangent = trigonometry.generateTangents(data.position, data.texcoord);
-      } else {
-        data.tangent = { value: [1, 0, 0] };
-      }
 
-      // Se temos cor nos dados, use a cor; se não, é branco
-      if (data.color) {
-        if (data.position.length === data.color.length) {
-          data.color = { numComponents: 3, data: data.color };
-        }
-      } else {
-        data.color = { value: [1, 1, 1, 1] };
-      }
+  // //Texturas do Peixe 2
+  // // Se existem texturas a serem carregadas (diretivas terminando em Map no MTL)
+  // // devemos carregá-las e associá-las devidamente
+  // for (const material of Object.values(mtl2)) {
+  //   Object.entries(material)
+  //     .filter(([key]) => key.endsWith('Map'))
+  //     .forEach(([key, filename]) => {
+  //       let texture = textures[filename];
+  //       if (!texture) {
+  //         texture = textureManager.createTexture(gl, `${resource_path2}/${filename}`);
+  //         textures[filename] = texture;
+  //       }
+  //       material[key] = texture;
+  //     });
+  // }
 
-      // Joga tudo no formato pro buffer
-      const bufferInfo = webglUtils.createBufferInfoFromArrays(gl, data);
+  // // Para cada elemento no nosso OBJ, definimos sua geometria e pegamos o material associado
+  // parts.push(obj2.geometries.map(
+  //   ({ material, data }) => {
 
-      return {
-        material: {
-          ...defaultMaterial,
-          ...mtl[material],
-        },
-        bufferInfo: bufferInfo,
-      };
-    }
-  ));
+  //     // Se temos coordenadas de textura e normais, tentamos calcular as tangentes
+  //     if (data.texcoord && data.normal) {
+  //       data.tangent = trigonometry.generateTangents(data.position, data.texcoord);
+  //     } else {
+  //       data.tangent = { value: [1, 0, 0] };
+  //     }
+
+  //     // Se temos cor nos dados, use a cor; se não, é branco
+  //     if (data.color) {
+  //       if (data.position.length === data.color.length) {
+  //         data.color = { numComponents: 3, data: data.color };
+  //       }
+  //     } else {
+  //       data.color = { value: [1, 1, 1, 1] };
+  //     }
+
+  //     // Joga tudo no formato pro buffer
+  //     const bufferInfo = webglUtils.createBufferInfoFromArrays(gl, data);
+
+  //     return {
+  //       material: {
+  //         ...defaultMaterial,
+  //         ...mtl[material],
+  //       },
+  //       bufferInfo: bufferInfo,
+  //     };
+  //   }
+  // ));
+
+  // //Texturas do Peixe 3
+  // // Se existem texturas a serem carregadas (diretivas terminando em Map no MTL)
+  // // devemos carregá-las e associá-las devidamente
+  // for (const material of Object.values(mtl3)) {
+  //   Object.entries(material)
+  //     .filter(([key]) => key.endsWith('Map'))
+  //     .forEach(([key, filename]) => {
+  //       let texture = textures[filename];
+  //       if (!texture) {
+  //         texture = textureManager.createTexture(gl, `${resource_path3}/${filename}`);
+  //         textures[filename] = texture;
+  //       }
+  //       material[key] = texture;
+  //     });
+  // }
+
+  // // Para cada elemento no nosso OBJ, definimos sua geometria e pegamos o material associado
+  // parts.push(obj3.geometries.map(
+  //   ({ material, data }) => {
+
+  //     // Se temos coordenadas de textura e normais, tentamos calcular as tangentes
+  //     if (data.texcoord && data.normal) {
+  //       data.tangent = trigonometry.generateTangents(data.position, data.texcoord);
+  //     } else {
+  //       data.tangent = { value: [1, 0, 0] };
+  //     }
+
+  //     // Se temos cor nos dados, use a cor; se não, é branco
+  //     if (data.color) {
+  //       if (data.position.length === data.color.length) {
+  //         data.color = { numComponents: 3, data: data.color };
+  //       }
+  //     } else {
+  //       data.color = { value: [1, 1, 1, 1] };
+  //     }
+
+  //     // Joga tudo no formato pro buffer
+  //     const bufferInfo = webglUtils.createBufferInfoFromArrays(gl, data);
+
+  //     return {
+  //       material: {
+  //         ...defaultMaterial,
+  //         ...mtl[material],
+  //       },
+  //       bufferInfo: bufferInfo,
+  //     };
+  //   }
+  // ));
 
   //Comum para todos?
   // Funções para achar os extents/bounds a partir da geometria, para deixar o objeto centrado na câmera
@@ -227,16 +238,14 @@ async function main() {
   }
 
   //Para o Peixe 1
-  const extents = getGeometriesExtents(obj.geometries);
+  const extents = getGeometriesExtents(obj[0].geometries);
   const range = m4.subtractVectors(extents.max, extents.min);
   //Para o Peixe 2
-  const extents2 = getGeometriesExtents(obj2.geometries);
+  const extents2 = getGeometriesExtents(obj[1].geometries);
   const range2 = m4.subtractVectors(extents2.max, extents2.min);
   //Para o Peixe 2
-  const extents3 = getGeometriesExtents(obj3.geometries);
+  const extents3 = getGeometriesExtents(obj[2].geometries);
   const range3 = m4.subtractVectors(extents3.max, extents3.min);
-
-  // CUBO
 
   // Define o offset que precisamos mover o objeto para que ele fique centrado na câmera
   const objOffset = [];
