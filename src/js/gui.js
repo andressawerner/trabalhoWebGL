@@ -410,7 +410,7 @@ const loadGUI = () => {
    }
   }
 
-  addFishDefault('fish1', 20, [0, degToRad(20), degToRad(20)], [degToRad(20), degToRad(20), degToRad(20)]);
+  addFishDefault('fish1', 20, [-24, 28.5, 0], [4.7, 0, 1.6]);
   addFishDefault('fish2', 10, [-28, -37, 0], [4.3, 6.3, 4.7]);
   addFishDefault('fish3', 0, [0,0,0], [0,0,0]);
  
@@ -456,9 +456,51 @@ const loadGUI = () => {
     translationZ: 0,
     scale: 0,
   });
+  //ANIMAÇÃO PEIXE 1
+  animationObjects.push({ 
+    object: 1,
+    time: 1,
+    rotateX: 0, 
+    rotateY: 0, 
+    rotateZ: degToRad(180), 
+    translationX: 0, 
+    translationY: 0, 
+    translationZ: 0,
+    scale: 0,
+  },{ 
+    object: 1,
+    time: 12,
+    rotateX: 0, 
+    rotateY: 0, 
+    rotateZ: 0, 
+    translationX: -16, 
+    translationY: 0, 
+    translationZ: 0,
+    scale: 0,
+  },{ 
+    object: 1,
+    time: 1,
+    rotateX: 0, 
+    rotateY: 0, 
+    rotateZ: degToRad(180), 
+    translationX: 0, 
+    translationY: 0, 
+    translationZ: 0,
+    scale: 0,
+  },{ 
+    object: 1,
+    time: 12,
+    rotateX: 0, 
+    rotateY: 0, 
+    rotateZ: 0, 
+    translationX: 16, 
+    translationY: 0, 
+    translationZ: 0,
+    scale: 0,
+  });
 
   //ANIMAÇÃO PEIXE 2
-  animationObjects2.push({ 
+  animationObjects.push({ 
     object: 2,
     time: 6,
     rotateX: 0, 
