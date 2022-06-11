@@ -12,8 +12,8 @@ newmtl 13007_Blue_Green_Reef_Chromis_v1
 	Kd 1.0000 1.0000 1.0000
 	Ks 0.5850 0.5850 0.5850
 	Ke 0.0000 0.0000 0.0000
-	map_Ka 13004_Bicolor_Blenny_v1_diff.jpg
+	#map_Ka 13004_Bicolor_Blenny_v1_diff.jpg
 	map_Kd 13004_Bicolor_Blenny_v1_diff.jpg
-	map_Ks 13004_Bicolor_Blenny_v1_spec.jpg
-	map_bump 13004_Bicolor_Blenny_v1_bump.jpg
-	bump 13004_Bicolor_Blenny_v1_bump.jpg
+	map_Ns 13004_Bicolor_Blenny_v1_spec.jpg
+	map_Bump 13004_Bicolor_Blenny_v1_bump.jpg
+	#bump 13004_Bicolor_Blenny_v1_bump.jpg
