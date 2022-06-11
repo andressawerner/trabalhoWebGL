@@ -349,6 +349,10 @@ async function main() {
 
   function render(now) {
 
+    gl.clearColor(0, 0.3, 1, 0.5);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+
+
     const c = parseInt(camerasS.selected)
     if (!isNaN(c)) {
       var copy = deepClone(camerasS)
@@ -361,7 +365,8 @@ async function main() {
     then = now;
 
     // OBJETO 
-    if (animationPlay) {
+    animationObjectPlay = 0;
+    //while (animationObjectPlay < 2) {
 
       const aO = animationObjects.filter((arg) => arg.object == animationObjectPlay)
       let aT = aO[0].time; //3seg      //passed 2seg
@@ -386,10 +391,39 @@ async function main() {
       timePassed += deltaT
       if (timePassed >= totalTime) {
         timePassed = 0;
-        animationObjectPlay = 0;
+        //animationObjectPlay = 0;
         //animationPlay = false;
       }
-    }
+    //}
+
+    //while (animationObjectPlay < 2) {
+
+      const aO1 = animationObjects2
+      let aT1 = aO1[0].time; //3seg      //passed 2seg
+      let totalTime1 = aT1;
+      let i1 = 0;
+      for (var j1 = 1; j1 < aO1.length; j1++) {
+        if (aT1 < timePassed1) {
+          aT1 += aO1[j1].time
+          i1 = j1
+        }
+        totalTime1 += aO1[j1].time
+      };
+
+      config[2].scale += (aO1[i1].scale * deltaT)
+      config[2].rotateX += (aO1[i1].rotateX * deltaT)
+      config[2].rotateY += (aO1[i1].rotateY * deltaT)
+      config[2].rotateZ += (aO1[i1].rotateZ * deltaT)
+      config[2].translationX += (aO1[i1].translationX * deltaT)
+      config[2].translationY += (aO1[i1].translationY * deltaT)
+      config[2].translationZ += (aO1[i1].translationZ * deltaT)
+
+      timePassed1 += deltaT
+      if (timePassed1 >= totalTime1) {
+        timePassed1 = 0;
+        //animationObjectPlay = 0;
+        //animationPlay = false;
+      }
 
     //CAMERA
     if (animationPlayCam) {
@@ -530,10 +564,6 @@ async function main() {
         }
       }
 
-    }
-
-    if (vectorObjects.every(arg => arg == '')) {
-      gl.clear(gl.COLOR_BUFFER_BIT);
     }
 
     requestAnimationFrame(render);
