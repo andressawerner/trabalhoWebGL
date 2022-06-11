@@ -218,3 +218,21 @@ function parseOBJ(text) {
     normal: webglVertexData[2],
   };
 }
+
+function initBkgnd(gl) {
+  backTex = gl.createTexture();
+  backTex.Img = new Image();
+  backTex.Img.onload = function() {
+      handleBkTex(backTex, gl);
+  }
+  backTex.Img.src = "src/styles/fundo-do-mar-para-videoconferencia_23-2148632597.webp";
+}
+
+function handleBkTex(tex, gl) {
+  gl.bindTexture(gl.TEXTURE_2D, tex);
+  gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, tex.Img);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+  gl.bindTexture(gl.TEXTURE_2D, null);
+}
