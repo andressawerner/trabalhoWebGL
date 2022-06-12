@@ -12,23 +12,11 @@ var state = {
   animation: {},
   app: {
     eye: {
-      x:3.,
-      y:3.,
-      z:7.,
+      x: 3.,
+      y: 3.,
+      z: 7.,
     },
   },
-}
-
-
-function mousedown(event) {
-  var point = uiUtils.pixelInputToCanvasCoord(event, state.canvas);
-  var pixels = new Uint8Array(4);
-  state.gl.readPixels(point.x, point.y, 1, 1, state.gl.RGBA, state.gl.UNSIGNED_BYTE, pixels);
-  if(pixels[0] === 127) {console.log("Red")}
-  document.addEventListener("click", event => {
-    console.log("Clique");
-    console.log("clientX: " + event.clientX + " - clientY: " + event.clientY);
-  })
 }
 
 async function main() {
@@ -518,11 +506,22 @@ async function main() {
           webglUtils.setUniforms(meshProgramInfo, uniforms[index], material);
           webglUtils.drawBufferInfo(gl, bufferInfo);
         }
+
       }
 
     }
 
     requestAnimationFrame(render);
+  }
+
+  function mousedown(event) {
+    var point = uiUtils.pixelInputToCanvasCoord(event, state.canvas);
+    var pixels = new Uint8Array(4);
+    state.gl.readPixels(point.x, point.y, 1, 1, state.gl.RGBA, state.gl.UNSIGNED_BYTE, pixels);
+    document.addEventListener("click", event => {
+      console.log("Clique");
+      console.log("clientX: " + event.clientX + " - clientY: " + event.clientY);
+    })
   }
 
   requestAnimationFrame(render);

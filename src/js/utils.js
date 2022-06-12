@@ -244,13 +244,3 @@ function keydown(event) {
 function keyup(event) {
   state.ui.pressedKeys[event.keyCode] = false;
 }
-
-function mousedown(event, state) {
-  console.log(state);
-  var point = uiUtils.pixelInputToCanvasCoord(event, state.canvas);
-  var pixels = new Uint8Array(4);
-  state.gl.readPixels(point.x, point.y, 1, 1, state.gl.RGBA, state.gl.UNSIGNED_BYTE, pixels);
-  if (pixels[0] === 255) {
-    console.log("cube selected!");
-  }
-}
