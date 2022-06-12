@@ -101,7 +101,7 @@ function parseMTL(mtlText) {
         ==========================================
         A diretiva "Tf" indica a a quantidade de cores que o material sendo declarado deixa passar
     */
-    function handleTr(parts) {
+    function handleTf(parts) {
         material.spectral = parts.map(parseFloat);
     }
 
@@ -158,6 +158,7 @@ function parseMTL(mtlText) {
         "Ni": (parts) => handleNi(parts),
         "d": (parts) => handleD(parts),
         "Tr": (parts) => handleTr(parts),
+        "Tf": (parts) => handleTf(parts),
         "illum": (parts) => handleIllum(parts),
         "map_Kd": (parts, unparsedArgs) => handleMapKd(parts, unparsedArgs),
         "map_Ns": (parts, unparsedArgs) => handleMapNs(parts, unparsedArgs),
@@ -183,7 +184,7 @@ function parseMTL(mtlText) {
         const parts = line.split(/\s+/).slice(1);
         const handler = handlers[keyword];
         if (!handler) {
-            console.warn('Diretiva não tratada:', keyword, 'na linha', n + 1);
+            console.warn('[mtl] Diretiva não tratada:', keyword, 'na linha', n + 1);
             continue;
         }
 

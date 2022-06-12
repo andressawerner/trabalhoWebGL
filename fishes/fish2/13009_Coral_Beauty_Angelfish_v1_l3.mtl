@@ -14,4 +14,4 @@ newmtl 13009_Coral_Beauty_Angelfish_v1
 	Ke 0.0000 0.0000 0.0000
 	map_Ka 13009_Coral_Beauty_Angelfish_v1_diff.jpg
 	map_Kd 13009_Coral_Beauty_Angelfish_v1_diff.jpg
-	map_Ks 13009_Coral_Beauty_Angelfish_v1_spec.jpg
+	map_Ns 13009_Coral_Beauty_Angelfish_v1_spec.jpg

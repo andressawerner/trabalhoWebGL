@@ -14,7 +14,7 @@ async function main() {
   const object_path = []
 
   resource_path.push("./fishes/fish1")
-  object_path.push("./fishes/fish1/13007_Blue-Green_Reef_Chromis_v2_l3")
+  object_path.push("./fishes/fish1/13007_Blue_Green_Reef_Chromis_v1")
 
   obj[0] = await objLoader.process(`${object_path[0]}.obj`);
   mtl[0] = await mtlLoader.process(`${object_path[0]}.mtl`);
@@ -27,11 +27,18 @@ async function main() {
   mtl[1] = await mtlLoader.process(`${object_path[1]}.mtl`);
 
   //Arquivo do peixe 3
-  resource_path.push("./fishes/fish3")
-  object_path.push("./fishes/fish3/13016_Yellowtai_ Damselfish_v2_l3")
+  resource_path.push("./fishes/fish5")
+  object_path.push("./fishes/fish5/TropicalFish04")
 
   obj[2] = await objLoader.process(`${object_path[2]}.obj`);
   mtl[2] = await mtlLoader.process(`${object_path[2]}.mtl`);
+
+  //Arquivo do peixe 4
+  resource_path.push("./fishes/fish4")
+  object_path.push("./fishes/fish4/fish")
+
+  obj[3] = await objLoader.process(`${object_path[3]}.obj`);
+  mtl[3] = await mtlLoader.process(`${object_path[3]}.mtl`);
 
 
   //Geral para os três peixes
@@ -87,6 +94,7 @@ async function main() {
         if (data.position.length === data.color.length) {
           data.color = { numComponents: 3, data: data.color };
         }
+        
       } else {
         data.color = { value: [1, 1, 1, 1] };
       }
@@ -105,106 +113,6 @@ async function main() {
   ));
     indicadorPeixe++;
   }
-
-
-
-  // //Texturas do Peixe 2
-  // // Se existem texturas a serem carregadas (diretivas terminando em Map no MTL)
-  // // devemos carregá-las e associá-las devidamente
-  // for (const material of Object.values(mtl2)) {
-  //   Object.entries(material)
-  //     .filter(([key]) => key.endsWith('Map'))
-  //     .forEach(([key, filename]) => {
-  //       let texture = textures[filename];
-  //       if (!texture) {
-  //         texture = textureManager.createTexture(gl, `${resource_path2}/${filename}`);
-  //         textures[filename] = texture;
-  //       }
-  //       material[key] = texture;
-  //     });
-  // }
-
-  // // Para cada elemento no nosso OBJ, definimos sua geometria e pegamos o material associado
-  // parts.push(obj2.geometries.map(
-  //   ({ material, data }) => {
-
-  //     // Se temos coordenadas de textura e normais, tentamos calcular as tangentes
-  //     if (data.texcoord && data.normal) {
-  //       data.tangent = trigonometry.generateTangents(data.position, data.texcoord);
-  //     } else {
-  //       data.tangent = { value: [1, 0, 0] };
-  //     }
-
-  //     // Se temos cor nos dados, use a cor; se não, é branco
-  //     if (data.color) {
-  //       if (data.position.length === data.color.length) {
-  //         data.color = { numComponents: 3, data: data.color };
-  //       }
-  //     } else {
-  //       data.color = { value: [1, 1, 1, 1] };
-  //     }
-
-  //     // Joga tudo no formato pro buffer
-  //     const bufferInfo = webglUtils.createBufferInfoFromArrays(gl, data);
-
-  //     return {
-  //       material: {
-  //         ...defaultMaterial,
-  //         ...mtl[material],
-  //       },
-  //       bufferInfo: bufferInfo,
-  //     };
-  //   }
-  // ));
-
-  // //Texturas do Peixe 3
-  // // Se existem texturas a serem carregadas (diretivas terminando em Map no MTL)
-  // // devemos carregá-las e associá-las devidamente
-  // for (const material of Object.values(mtl3)) {
-  //   Object.entries(material)
-  //     .filter(([key]) => key.endsWith('Map'))
-  //     .forEach(([key, filename]) => {
-  //       let texture = textures[filename];
-  //       if (!texture) {
-  //         texture = textureManager.createTexture(gl, `${resource_path3}/${filename}`);
-  //         textures[filename] = texture;
-  //       }
-  //       material[key] = texture;
-  //     });
-  // }
-
-  // // Para cada elemento no nosso OBJ, definimos sua geometria e pegamos o material associado
-  // parts.push(obj3.geometries.map(
-  //   ({ material, data }) => {
-
-  //     // Se temos coordenadas de textura e normais, tentamos calcular as tangentes
-  //     if (data.texcoord && data.normal) {
-  //       data.tangent = trigonometry.generateTangents(data.position, data.texcoord);
-  //     } else {
-  //       data.tangent = { value: [1, 0, 0] };
-  //     }
-
-  //     // Se temos cor nos dados, use a cor; se não, é branco
-  //     if (data.color) {
-  //       if (data.position.length === data.color.length) {
-  //         data.color = { numComponents: 3, data: data.color };
-  //       }
-  //     } else {
-  //       data.color = { value: [1, 1, 1, 1] };
-  //     }
-
-  //     // Joga tudo no formato pro buffer
-  //     const bufferInfo = webglUtils.createBufferInfoFromArrays(gl, data);
-
-  //     return {
-  //       material: {
-  //         ...defaultMaterial,
-  //         ...mtl[material],
-  //       },
-  //       bufferInfo: bufferInfo,
-  //     };
-  //   }
-  // ));
 
   //Comum para todos?
   // Funções para achar os extents/bounds a partir da geometria, para deixar o objeto centrado na câmera
@@ -243,9 +151,12 @@ async function main() {
   //Para o Peixe 2
   const extents2 = getGeometriesExtents(obj[1].geometries);
   const range2 = m4.subtractVectors(extents2.max, extents2.min);
-  //Para o Peixe 2
+  //Para o Peixe 3
   const extents3 = getGeometriesExtents(obj[2].geometries);
   const range3 = m4.subtractVectors(extents3.max, extents3.min);
+  //Para o Peixe 4
+  const extents4 = getGeometriesExtents(obj[3].geometries);
+  const range4 = m4.subtractVectors(extents4.max, extents4.min);
 
   // Define o offset que precisamos mover o objeto para que ele fique centrado na câmera
   const objOffset = [];
@@ -354,6 +265,31 @@ async function main() {
     u_viewWorldPosition: [0, 0, 100],
   });
 
+    // PEIXE 4
+
+  // Define o offset que precisamos mover o objeto para que ele fique centrado na câmera
+  objOffset.push(m4.scaleVector(
+    m4.addVectors(
+      extents4.min,
+      m4.scaleVector(range4, 0.5)
+    ),
+    -1,
+  ));
+
+  bufferInfo.push(parts[3][0].bufferInfo);
+
+  vao.push(twgl.createVAOFromBufferInfo(
+    gl,
+    meshProgramInfo,
+    parts[3][0].bufferInfo,
+  ));
+
+  uniforms.push({
+    u_matrix: m4.identity(),
+    u_lightDirection: m4.normalize([-1, 3, 5]),
+    u_viewWorldPosition: [0, 0, 100],
+  });
+
   loadGUI();
 
   function render(now) {
@@ -376,7 +312,7 @@ async function main() {
 
     // OBJETO 
     animationObjectPlay = 0;
-    while (animationObjectPlay < 3) {
+    while (animationObjectPlay < numFishes) {
 
       const aO = animationObjects.filter((arg) => arg.object == animationObjectPlay)
       let aT = aO[0].time; //3seg      //passed 2seg
@@ -406,35 +342,6 @@ async function main() {
       }
       animationObjectPlay++;
     }
-
-    // //while (animationObjectPlay < 2) {
-
-    //   const aO1 = animationObjects2
-    //   let aT1 = aO1[0].time; //3seg      //passed 2seg
-    //   let totalTime1 = aT1;
-    //   let i1 = 0;
-    //   for (var j1 = 1; j1 < aO1.length; j1++) {
-    //     if (aT1 < timePassed1) {
-    //       aT1 += aO1[j1].time
-    //       i1 = j1
-    //     }
-    //     totalTime1 += aO1[j1].time
-    //   };
-
-    //   config[2].scale += (aO1[i1].scale * deltaT)
-    //   config[2].rotateX += (aO1[i1].rotateX * deltaT)
-    //   config[2].rotateY += (aO1[i1].rotateY * deltaT)
-    //   config[2].rotateZ += (aO1[i1].rotateZ * deltaT)
-    //   config[2].translationX += (aO1[i1].translationX * deltaT)
-    //   config[2].translationY += (aO1[i1].translationY * deltaT)
-    //   config[2].translationZ += (aO1[i1].translationZ * deltaT)
-
-    //   timePassed1 += deltaT
-    //   if (timePassed1 >= totalTime1) {
-    //     timePassed1 = 0;
-    //     //animationObjectPlay = 0;
-    //     //animationPlay = false;
-    //   }
 
     //CAMERA
     if (animationPlayCam) {
@@ -541,7 +448,11 @@ async function main() {
         case 'fish3':
           index = 2
           break;
+        case 'fish4':
+          index = 3
+          break;
       }
+
       if (!!random) {
         // Todas as partes estão no mesmo espaço, então o espaço-mundo é constante
         // Como estamos "zooming out", temos que ajustar pelo offset

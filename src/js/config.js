@@ -6,12 +6,12 @@ var animationObjects2 = [];
 var animationCameras = [];
 var animationPlay = false;
 var animationObjectPlay = [0,1];
-var timePassed = [0, 0, 0];
+var timePassed = [0, 0, 0, 0];
 var timePassed1 = 0;
 var timePassed2 = 0;
 var animationCamIndex = 0;
 var animationPlayCam = false;
-var numFishes = 3
+var numFishes = 4;
 
 var config = [{ 
   rotateX: 8, 

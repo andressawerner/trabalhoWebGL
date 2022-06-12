@@ -216,7 +216,7 @@ function parseOBJ(objText) {
         const parts = line.split(/\s+/).slice(1);
         const handler = handlers[keyword];
         if (!handler) {
-            console.warn('Diretiva não tratada:', keyword, 'na linha', n + 1);
+            console.warn('[obj] Diretiva não tratada:', keyword, 'na linha', n + 1);
             continue;
         }
 

@@ -1,7 +1,7 @@
 
 var vectorObjects = []
 var vectorFolderObjects = []
-var formats = ['fish1', 'fish2', 'fish3']
+var formats = ['fish1', 'fish2', 'fish3', 'fish4']
 
 var button = { 
   clickme: 0,
@@ -410,9 +410,10 @@ const loadGUI = () => {
    }
   }
 
-  addFishDefault('fish1', 20, [-24, 28.5, 0], [4.7, 0, 1.6]);
-  addFishDefault('fish2', 10, [-28, -37, 0], [4.3, 6.3, 4.7]);
-  addFishDefault('fish3', 0, [0,0,0], [0,0,0]);
+  addFishDefault('fish1', 10, [-24, 28.5, 0], [4.7, 0, 1.6]);
+  addFishDefault('fish2', 0.02, [-100, -37, 0], [6.1, 8.3, 5.8]);
+  addFishDefault('fish3', 8, [200,0,0], [3.1, 4.7, 2.9]);
+  addFishDefault('fish4', 1, [0,0,0], [0,0,0]);
  
   //ANIMAÇÃO PEIXE 0
   animationObjects.push({ 
@@ -421,7 +422,7 @@ const loadGUI = () => {
     rotateX: 0, 
     rotateY: 0, 
     rotateZ: 0, 
-    translationX: 10, 
+    translationX: 14, 
     translationY: 0, 
     translationZ: 0,
     scale: 0,
@@ -441,7 +442,7 @@ const loadGUI = () => {
     rotateX: 0, 
     rotateY: 0, 
     rotateZ: 0, 
-    translationX: -10, 
+    translationX: -14, 
     translationY: 0, 
     translationZ: 0,
     scale: 0,
@@ -456,6 +457,7 @@ const loadGUI = () => {
     translationZ: 0,
     scale: 0,
   });
+
   //ANIMAÇÃO PEIXE 1
   animationObjects.push({ 
     object: 1,
@@ -473,7 +475,7 @@ const loadGUI = () => {
     rotateX: 0, 
     rotateY: 0, 
     rotateZ: 0, 
-    translationX: -16, 
+    translationX: -20, 
     translationY: 0, 
     translationZ: 0,
     scale: 0,
@@ -489,11 +491,11 @@ const loadGUI = () => {
     scale: 0,
   },{ 
     object: 1,
-    time: 12,
+    time: 18,
     rotateX: 0, 
     rotateY: 0, 
     rotateZ: 0, 
-    translationX: 16, 
+    translationX: 20, 
     translationY: 0, 
     translationZ: 0,
     scale: 0,
@@ -502,11 +504,11 @@ const loadGUI = () => {
   //ANIMAÇÃO PEIXE 2
   animationObjects.push({ 
     object: 2,
-    time: 6,
+    time: 8,
     rotateX: 0, 
     rotateY: 0, 
     rotateZ: 0, 
-    translationX: 10, 
+    translationX: 14, 
     translationY: 0, 
     translationZ: 0,
     scale: 0,
@@ -514,19 +516,19 @@ const loadGUI = () => {
     object: 2,
     time: 1,
     rotateX: 0, 
-    rotateY: 0, 
-    rotateZ: degToRad(180), 
+    rotateY: degToRad(180), 
+    rotateZ: 0, 
     translationX: 0, 
     translationY: 0, 
     translationZ: 0,
     scale: 0,
   },{ 
     object: 2,
-    time: 6,
+    time: 8,
     rotateX: 0, 
     rotateY: 0, 
     rotateZ: 0, 
-    translationX: -10, 
+    translationX: -14, 
     translationY: 0, 
     translationZ: 0,
     scale: 0,
@@ -534,13 +536,56 @@ const loadGUI = () => {
     object: 2,
     time: 1,
     rotateX: 0, 
-    rotateY: 0, 
-    rotateZ: degToRad(180), 
+    rotateY: degToRad(180), 
+    rotateZ: 0, 
     translationX: 0, 
     translationY: 0, 
     translationZ: 0,
     scale: 0,
   });
+
+    //ANIMAÇÃO PEIXE 3
+    animationObjects.push({ 
+      object: 3,
+      time: 18,
+      rotateX: 0, 
+      rotateY: 0, 
+      rotateZ: 0, 
+      translationX: -20, 
+      translationY: 0, 
+      translationZ: 0,
+      scale: 0,
+    },{ 
+      object: 3,
+      time: 1,
+      rotateX: 0, 
+      rotateY: degToRad(-180), 
+      rotateZ: 0, 
+      translationX: 0, 
+      translationY: 0, 
+      translationZ: 0,
+      scale: 0,
+    },{ 
+      object: 3,
+      time: 18,
+      rotateX: 0, 
+      rotateY: 0, 
+      rotateZ: 0, 
+      translationX: 20, 
+      translationY: 0, 
+      translationZ: 0,
+      scale: 0,
+    },{ 
+      object: 3,
+      time: 1,
+      rotateX: 0, 
+      rotateY: degToRad(-180), 
+      rotateZ: 0, 
+      translationX: 0, 
+      translationY: 0, 
+      translationZ: 0,
+      scale: 0,
+    });
 
   animationPlay = true;
 
