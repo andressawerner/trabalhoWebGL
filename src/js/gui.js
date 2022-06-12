@@ -186,24 +186,6 @@ const loadGUI = () => {
      scale: 0,
    });
 
-  //  animation.add(animationConfig[count], "time", 1, 10, 0.1);
-  //  animation.add(animationConfig[count], "scale", -1, 1, 0.05);
-
-  //  const animationRotate = animation.addFolder(`Rotação no Eixo`);
-  //  animationRotate.add(animationConfig[count], "rotateX", -10, 10, 0.5).name('X');
-  //  animationRotate.add(animationConfig[count], "rotateY", -10, 10, 0.5).name('Y');
-  //  animationRotate.add(animationConfig[count], "rotateZ", -10, 10, 0.5).name('Z');
-
-  //  const animationTranslation = animation.addFolder(`Translação Linear`);
-  //  animationTranslation.add(animationConfig[count], "translationX", -10, 10, 0.5).name('X');
-  //  animationTranslation.add(animationConfig[count], "translationY", -10, 10, 0.5).name('Y');
-  //  animationTranslation.add(animationConfig[count], "translationZ", -10, 10, 0.5).name('Z');
-
-   //animation.add(addAnimation, `Add Animation ${count + 1}`);
-
-   //animation.add(animate, `Animate Object ${count + 1}`);
-
-
    count++;
    vectorObjects.push(idFish == 'food' ? '' : idFish);
   }
