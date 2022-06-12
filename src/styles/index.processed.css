@@ -8,7 +8,7 @@ canvas {
   width: 100vw;
   height: 100vh;
   display: block;
-  background-image: url("totoBg.png");
+  background-image: url("totoBg+.png");
   background-size: cover;  
 }
 

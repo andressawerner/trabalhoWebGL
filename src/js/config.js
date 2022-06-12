@@ -182,166 +182,166 @@ var lookingAcomp = {
   },
 };
 
-var deleting = {
-  'Delete Object 1': function(){
-    deleteObject(0)
-  },
-  'Delete Object 2': function(){
-    deleteObject(1)
- },
-  'Delete Object 3': function(){
-    deleteObject(2)
- },
- 'Delete Object 4': function(){
-  deleteObject(3)
-},
-'Delete Object 5': function(){
-  deleteObject(4)
-},
-'Delete Object 6': function(){
-  deleteObject(5)
-},
-'Delete Object 7': function(){
-  deleteObject(6)
-},
-'Delete Object 8': function(){
-  deleteObject(7)
-},
-'Delete Object 9': function(){
-  deleteObject(8)
-},
-'Delete Object 10': function(){
-  deleteObject(9)
-},
-'Delete Object 11': function(){
-  deleteObject(10)
-},
-};
+// var deleting = {
+//   'Delete Object 1': function(){
+//     deleteObject(0)
+//   },
+//   'Delete Object 2': function(){
+//     deleteObject(1)
+//  },
+//   'Delete Object 3': function(){
+//     deleteObject(2)
+//  },
+//  'Delete Object 4': function(){
+//   deleteObject(3)
+// },
+// 'Delete Object 5': function(){
+//   deleteObject(4)
+// },
+// 'Delete Object 6': function(){
+//   deleteObject(5)
+// },
+// 'Delete Object 7': function(){
+//   deleteObject(6)
+// },
+// 'Delete Object 8': function(){
+//   deleteObject(7)
+// },
+// 'Delete Object 9': function(){
+//   deleteObject(8)
+// },
+// 'Delete Object 10': function(){
+//   deleteObject(9)
+// },
+// 'Delete Object 11': function(){
+//   deleteObject(10)
+// },
+// };
 
 
-var addAnimation = {
-  'Add Animation 1': function(){
-    addAni(0)
-  },
-  'Add Animation 2': function(){
-    addAni(1)
-  },
-  'Add Animation 3': function(){
-    addAni(2)
-  },
-  'Add Animation 4': function(){
-    addAni(3)
-  },
-  'Add Animation 5': function(){
-    addAni(4)
-  },
-  'Add Animation 6': function(){
-    addAni(5)
-  },
-  'Add Animation 7': function(){
-    addAni(6)
-  },
-  'Add Animation 8': function(){
-    addAni(7)
-  },
-  'Add Animation 9': function(){
-    addAni(8)
-  },
-  'Add Animation 10': function(){
-    addAni(9)
-  },
-  'Add Animation 11': function(){
-    addAni(10)
-  },
+// var addAnimation = {
+//   'Add Animation 1': function(){
+//     addAni(0)
+//   },
+//   'Add Animation 2': function(){
+//     addAni(1)
+//   },
+//   'Add Animation 3': function(){
+//     addAni(2)
+//   },
+//   'Add Animation 4': function(){
+//     addAni(3)
+//   },
+//   'Add Animation 5': function(){
+//     addAni(4)
+//   },
+//   'Add Animation 6': function(){
+//     addAni(5)
+//   },
+//   'Add Animation 7': function(){
+//     addAni(6)
+//   },
+//   'Add Animation 8': function(){
+//     addAni(7)
+//   },
+//   'Add Animation 9': function(){
+//     addAni(8)
+//   },
+//   'Add Animation 10': function(){
+//     addAni(9)
+//   },
+//   'Add Animation 11': function(){
+//     addAni(10)
+//   },
 
 
-}
+// }
 
-var addAnimationCam = {
-  'Add Animation 1': function(){
-    addAniCam(0)
-  },
-  'Add Animation 2': function(){
-    addAniCam(1)
-  },
-  'Add Animation 3': function(){
-    addAniCam(2)
-  },
-  'Add Animation 4': function(){
-    addAniCam(3)
-  },
-  'Add Animation 5': function(){
-    addAniCam(4)
-  },
-  'Add Animation 6': function(){
-    addAniCam(5)
-  },
-  'Add Animation 7': function(){
-    addAniCam(6)
-  },
-  'Add Animation 8': function(){
-    addAniCam(7)
-  },
-  'Add Animation 9': function(){
-    addAniCam(8)
-  },
-  'Add Animation 10': function(){
-    addAniCam(9)
-  },
-  'Add Animation 11': function(){
-    addAniCam(10)
-  },
-}
+// var addAnimationCam = {
+//   'Add Animation 1': function(){
+//     addAniCam(0)
+//   },
+//   'Add Animation 2': function(){
+//     addAniCam(1)
+//   },
+//   'Add Animation 3': function(){
+//     addAniCam(2)
+//   },
+//   'Add Animation 4': function(){
+//     addAniCam(3)
+//   },
+//   'Add Animation 5': function(){
+//     addAniCam(4)
+//   },
+//   'Add Animation 6': function(){
+//     addAniCam(5)
+//   },
+//   'Add Animation 7': function(){
+//     addAniCam(6)
+//   },
+//   'Add Animation 8': function(){
+//     addAniCam(7)
+//   },
+//   'Add Animation 9': function(){
+//     addAniCam(8)
+//   },
+//   'Add Animation 10': function(){
+//     addAniCam(9)
+//   },
+//   'Add Animation 11': function(){
+//     addAniCam(10)
+//   },
+// }
 
-var animate = {
-  'Animate Object 1': function(){
-    animateObj(0)
-  },
-  'Animate Object 2': function(){
-    animateObj(1)
-  },
-  'Animate Object 3': function(){
-    animateObj(2)
-  },
-  'Animate Object 4': function(){
-    animateObj(3)
-  },
-  'Animate Object 5': function(){
-    animateObj(4)
-  },
-  'Animate Object 6': function(){
-    animateObj(5)
-  },
-  'Animate Object 7': function(){
-    animateObj(6)
-  },
-  'Animate Object 8': function(){
-    animateObj(7)
-  },
-  'Animate Object 9': function(){
-    animateObj(8)
-  },
-  'Animate Object 10': function(){
-    animateObj(9)
-  },
-  'Animate Object 11': function(){
-    animateObj(10)
-  },
+// var animate = {
+//   'Animate Object 1': function(){
+//     animateObj(0)
+//   },
+//   'Animate Object 2': function(){
+//     animateObj(1)
+//   },
+//   'Animate Object 3': function(){
+//     animateObj(2)
+//   },
+//   'Animate Object 4': function(){
+//     animateObj(3)
+//   },
+//   'Animate Object 5': function(){
+//     animateObj(4)
+//   },
+//   'Animate Object 6': function(){
+//     animateObj(5)
+//   },
+//   'Animate Object 7': function(){
+//     animateObj(6)
+//   },
+//   'Animate Object 8': function(){
+//     animateObj(7)
+//   },
+//   'Animate Object 9': function(){
+//     animateObj(8)
+//   },
+//   'Animate Object 10': function(){
+//     animateObj(9)
+//   },
+//   'Animate Object 11': function(){
+//     animateObj(10)
+//   },
 
-  'Animate Camera 1': function(){
-    animateCam(0)
-  },
-  'Animate Camera 2': function(){
-    animateCam(1)
-  },
-  'Animate Camera 3': function(){
-    animateCam(2)
-  },
-  'Animate Camera 4': function(){
-    animateCam(3)
-  },
-  'Animate Camera 5': function(){
-    animateCam(4)
-  },
+//   'Animate Camera 1': function(){
+//     animateCam(0)
+//   },
+//   'Animate Camera 2': function(){
+//     animateCam(1)
+//   },
+//   'Animate Camera 3': function(){
+//     animateCam(2)
+//   },
+//   'Animate Camera 4': function(){
+//     animateCam(3)
+//   },
+//   'Animate Camera 5': function(){
+//     animateCam(4)
+//   },
 
-}
+// }

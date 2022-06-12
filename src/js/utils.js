@@ -13,38 +13,38 @@ const localObject = (index, a) => {
 };
 
 const deleteObject = (index) => {
-  const textFilter = `Object ${index + 1}`
+  // const textFilter = `Object ${index + 1}`
   vectorObjects[index] = 'x'
-  const nodeFiltered = Array.prototype.slice.call(document.querySelectorAll('.folder .title')).filter((arg) => arg.innerText == textFilter);
-  nodeFiltered[0].closest('.folder').setAttribute('class', 'none');
+  // const nodeFiltered = Array.prototype.slice.call(document.querySelectorAll('.folder .title')).filter((arg) => arg.innerText == textFilter);
+  // nodeFiltered[0].closest('.folder').setAttribute('class', 'none');
 
-  const lookRemover = document.querySelectorAll('#olhar_para')
-  for (j = 0; j < lookRemover.length; j++) {
-    const lookRemove = lookRemover[j].parentElement.children
-    for (i = 0; i < lookRemove.length; i++) {
-      if (lookRemove[i].querySelector('.property-name')?.innerText == textFilter) {
-        lookRemove[i].querySelector('.property-name')?.parentElement.parentElement.setAttribute('class', 'none')
-      }
-    }
-  }
+  // const lookRemover = document.querySelectorAll('#olhar_para')
+  // for (j = 0; j < lookRemover.length; j++) {
+  //   const lookRemove = lookRemover[j].parentElement.children
+  //   for (i = 0; i < lookRemove.length; i++) {
+  //     if (lookRemove[i].querySelector('.property-name')?.innerText == textFilter) {
+  //       lookRemove[i].querySelector('.property-name')?.parentElement.parentElement.setAttribute('class', 'none')
+  //     }
+  //   }
+  // }
 
-  const lookAcompRemover = document.querySelectorAll('#acompanhar')
-  for (j = 0; j < lookAcompRemover.length; j++) {
-    const lookAcompRemove = lookAcompRemover[j].parentElement.children
-    for (i = 0; i < lookAcompRemove.length; i++) {
-      if (lookAcompRemove[i].querySelector('.property-name')?.innerText == textFilter) {
-        lookAcompRemove[i].querySelector('.property-name')?.parentElement.parentElement.setAttribute('class', 'none')
-      }
-    }
-  }
+  // const lookAcompRemover = document.querySelectorAll('#acompanhar')
+  // for (j = 0; j < lookAcompRemover.length; j++) {
+  //   const lookAcompRemove = lookAcompRemover[j].parentElement.children
+  //   for (i = 0; i < lookAcompRemove.length; i++) {
+  //     if (lookAcompRemove[i].querySelector('.property-name')?.innerText == textFilter) {
+  //       lookAcompRemove[i].querySelector('.property-name')?.parentElement.parentElement.setAttribute('class', 'none')
+  //     }
+  //   }
+  // }
 
 
-  if (cam[selectedCam].lookingObject && objectAcomp == index) {
-    cam[selectedCam].lookAtX = config[index].translationX
-    cam[selectedCam].lookAtY = config[index].translationY
-    cam[selectedCam].lookAtZ = config[index].translationZ
-    cam[selectedCam].lookingObject = false
-  }
+  // if (cam[selectedCam].lookingObject && objectAcomp == index) {
+  //   cam[selectedCam].lookAtX = config[index].translationX
+  //   cam[selectedCam].lookAtY = config[index].translationY
+  //   cam[selectedCam].lookAtZ = config[index].translationZ
+  //   cam[selectedCam].lookingObject = false
+  // }
 
 };
 
