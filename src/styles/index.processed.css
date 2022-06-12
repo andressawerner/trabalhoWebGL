@@ -9,6 +9,7 @@ canvas {
   height: 100vh;
   display: block;
   background-image: url("fundo-do-mar-para-videoconferencia_23-2148632597.webp");
+  background-size: cover;  
 }
 
 .none {
