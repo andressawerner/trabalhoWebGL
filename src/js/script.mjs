@@ -62,6 +62,13 @@ async function main() {
   obj[3] = await objLoader.process(`${object_path[3]}.obj`);
   mtl[3] = await mtlLoader.process(`${object_path[3]}.mtl`);
 
+  //FOOD
+  resource_path.push("./fishes/food")
+  object_path.push("./fishes/food/food")
+
+  obj[4] = await objLoader.process(`${object_path[4]}.obj`);
+  mtl[4] = await mtlLoader.process(`${object_path[4]}.mtl`);
+
 
   //Geral para os três peixes
   // Define texturas e material-base caso a geometria precise e não tenha
@@ -136,7 +143,7 @@ async function main() {
     indicadorPeixe++;
   }
 
-  //Comum para todos?
+  //Comum para todos
   // Funções para achar os extents/bounds a partir da geometria, para deixar o objeto centrado na câmera
   function getExtents(positions) {
     const min = positions.slice(0, 3);
@@ -179,6 +186,9 @@ async function main() {
   //Para o Peixe 4
   const extents4 = getGeometriesExtents(obj[3].geometries);
   const range4 = m4.subtractVectors(extents4.max, extents4.min);
+  //Para a Comida
+  const extents5 = getGeometriesExtents(obj[4].geometries);
+  const range5 = m4.subtractVectors(extents5.max, extents5.min);
 
   // Define o offset que precisamos mover o objeto para que ele fique centrado na câmera
   const objOffset = [];
@@ -312,6 +322,30 @@ async function main() {
     u_viewWorldPosition: [0, 0, 100],
   });
 
+  //FOOD
+  // Define o offset que precisamos mover o objeto para que ele fique centrado na câmera
+  objOffset.push(m4.scaleVector(
+    m4.addVectors(
+      extents5.min,
+      m4.scaleVector(range5, 0.5)
+    ),
+    -1,
+  ));
+
+  bufferInfo.push(parts[4][0].bufferInfo);
+
+  vao.push(twgl.createVAOFromBufferInfo(
+    gl,
+    meshProgramInfo,
+    parts[4][0].bufferInfo,
+  ));
+
+  uniforms.push({
+    u_matrix: m4.identity(),
+    u_lightDirection: m4.normalize([-1, 3, 5]),
+    u_viewWorldPosition: [0, 0, 100],
+  });
+
   loadGUI();
 
   function render(now) {
@@ -335,8 +369,8 @@ async function main() {
     // OBJETO 
     animationObjectPlay = 0;
     while (animationObjectPlay < numFishes) {
-
       const aO = animationObjects.filter((arg) => arg.object == animationObjectPlay)
+      if (aO.length){
       let aT = aO[0].time; //3seg      //passed 2seg
       let totalTime = aT;
       let i = 0;
@@ -362,7 +396,57 @@ async function main() {
         //animationObjectPlay = 0;
         //animationPlay = false;
       }
+    }
       animationObjectPlay++;
+    }
+
+    if (dropFood) {
+      animationObjectPlay = food;
+      const aO = animationObjects.filter((arg) => arg.object == animationObjectPlay)
+      if (aO.length){
+      let aT = aO[0].time; //3seg      //passed 2seg
+      let totalTime = aT;
+      let i = 0;
+      for (var j = 1; j < aO.length; j++) {
+        if (aT < timePassed[animationObjectPlay]) {
+          aT += aO[j].time
+          i = j
+        }
+        totalTime += aO[j].time
+      };
+
+      config[animationObjectPlay].scale += (aO[i].scale * deltaT)
+      config[animationObjectPlay].rotateX += (aO[i].rotateX * deltaT)
+      config[animationObjectPlay].rotateY += (aO[i].rotateY * deltaT)
+      config[animationObjectPlay].rotateZ += (aO[i].rotateZ * deltaT)
+      config[animationObjectPlay].translationX += (aO[i].translationX * deltaT)
+      config[animationObjectPlay].translationY += (aO[i].translationY * deltaT)
+      config[animationObjectPlay].translationZ += (aO[i].translationZ * deltaT)
+
+      let isNext = false;
+      for (let i = 0; i < numFishes; i++){
+        const diffX = config[animationObjectPlay].translationX > config[i].translationX ?
+          config[animationObjectPlay].translationX - config[i].translationX
+          : config[i].translationX - config[animationObjectPlay].translationX
+
+        const diffY = config[animationObjectPlay].translationY > config[i].translationY ?
+        config[animationObjectPlay].translationY - config[i].translationY
+        : config[i].translationY - config[animationObjectPlay].translationY
+        if (diffX + diffY < 20) {
+          isNext = true;
+        }
+
+      }
+
+
+      timePassed[animationObjectPlay] += deltaT
+      if (isNext || timePassed[animationObjectPlay] >= totalTime || config[animationObjectPlay].translationY < -70) {
+        timePassed[animationObjectPlay] = 0;
+        deleteObject(animationObjectPlay)
+        dropFood = false;
+        //animationPlay = false;
+      }
+    }
     }
 
     //CAMERA
@@ -457,7 +541,7 @@ async function main() {
 
     gl.useProgram(meshProgramInfo.program);
 
-    for (i = 0; i < vectorObjects.length; i++) {
+    for (let i = 0; i < vectorObjects.length; i++) {
       const random = vectorObjects[i]
       let index = 10
       switch (random) {
@@ -473,9 +557,12 @@ async function main() {
         case 'fish4':
           index = 3
           break;
+        case 'food':
+          index = 4
+          break;
       }
 
-      if (!!random) {
+      if (!!random && random != 'x') {
         // Todas as partes estão no mesmo espaço, então o espaço-mundo é constante
         // Como estamos "zooming out", temos que ajustar pelo offset
         let u_world = m4.yRotation(time);
@@ -520,7 +607,16 @@ async function main() {
     state.gl.readPixels(point.x, point.y, 1, 1, state.gl.RGBA, state.gl.UNSIGNED_BYTE, pixels);
     document.addEventListener("click", event => {
       console.log("Clique");
-      console.log("clientX: " + event.clientX + " - clientY: " + event.clientY);
+      //console.log("clientX: " + event.clientX + " - clientY: " + event.clientY);
+      indexFood = vectorObjects.indexOf('')
+      if (vectorObjects.indexOf('food') != -1) {
+        indexFood = vectorObjects.indexOf('food')
+      }
+     
+      vectorObjects[indexFood] = 'food'
+      //vectorObjects[8] = 'food'
+      dropFood = true;
+      food = indexFood;
     })
   }
 

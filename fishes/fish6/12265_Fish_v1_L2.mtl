@@ -12,4 +12,5 @@ newmtl 01___12265_Fish
 	Kd 1.0000 1.0000 1.0000
 	Ks 0.2700 0.2700 0.2700
 	Ke 0.0000 0.0000 0.0000
-	map_Kd fish.png
+	map_Ka fish.jpg
+	map_Kd fish.jpg

@@ -1,17 +1,16 @@
 var time = 0.005;
 var selectedCam = 1;
 var animationObjects = [];
-var animationObjects1 = [];
-var animationObjects2 = [];
 var animationCameras = [];
 var animationPlay = false;
 var animationObjectPlay = [0,1];
 var timePassed = [0, 0, 0, 0];
-var timePassed1 = 0;
-var timePassed2 = 0;
 var animationCamIndex = 0;
 var animationPlayCam = false;
-var numFishes = 4;
+var numFishes = 5;
+var dropFood = false;
+var food = 0;
+var indexFood = 0;
 
 var config = [{ 
   rotateX: 8, 

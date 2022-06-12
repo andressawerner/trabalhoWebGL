@@ -1,7 +1,8 @@
-
+var count = 0;
+var countCam = 0;
 var vectorObjects = []
 var vectorFolderObjects = []
-var formats = ['fish1', 'fish2', 'fish3', 'fish4']
+var formats = ['fish1', 'fish2', 'fish3', 'fish4', 'food'];
 
 var button = { 
   clickme: 0,
@@ -10,14 +11,12 @@ var button = {
 const loadGUI = () => {
 
   const gui = new dat.GUI();
-  var count = 0;
-  var countCam = 0;
-  
+
   // BOTÕES OBJETOS
   var addObject = { 'Add Object': function(){
      const obj = gui.addFolder(`Object ${count + 1}`);
 
-     obj.add(deleting, 'Delete Object ' + (count+1));
+     //obj.add(deleting, 'Delete Object ' + (count+1));
 
      config.push({ 
       rotateX: degToRad(20), 
@@ -102,18 +101,18 @@ const loadGUI = () => {
     animationTranslation.add(animationConfig[count], "translationY", -10, 10, 0.5).name('Y');
     animationTranslation.add(animationConfig[count], "translationZ", -10, 10, 0.5).name('Z');
 
-    animation.add(addAnimation, `Add Animation ${count + 1}`);
+    // animation.add(addAnimation, `Add Animation ${count + 1}`);
 
-    animation.add(animate, `Animate Object ${count + 1}`);
+    // animation.add(animate, `Animate Object ${count + 1}`);
 
 
     count++;
     vectorFolderObjects.push(obj) 
     vectorObjects.push(formats[Math.floor(Math.random() * 3)]);
-    for (i = 0; i < lookAt.length; i++){
-      lookAt[i].add(looking, `Object ${count}`);
-      lookAcompanhar[i].add(lookingAcomp, `Object ${count}`);
-    }
+    // for (i = 0; i < lookAt.length; i++){
+    //   lookAt[i].add(looking, `Object ${count}`);
+    //   lookAcompanhar[i].add(lookingAcomp, `Object ${count}`);
+    // }
   }};
 
   gui.add(addObject, 'Add Object');
@@ -161,20 +160,20 @@ const loadGUI = () => {
       translation.add(cam[countCam], "translationY", -100, 100, 0.01).name('Y');
       translation.add(cam[countCam], "translationZ", -100, 200, 0.01).name('Z');
     
-      const bezier = camera.addFolder(`Translação Bezier`);
-      bezier.add(cam[countCam], "bezier").name('Bezier');
-      bezier.add(cam[countCam], "bezierT", 0, 1, 0.01).name('t');
-      bezier.add(cam[countCam], "bezierX1", -100, 100, 0.5).name('1: X');
-      bezier.add(cam[countCam], "bezierY1", -100, 100, 0.5).name('1: Y');
+      // const bezier = camera.addFolder(`Translação Bezier`);
+      // bezier.add(cam[countCam], "bezier").name('Bezier');
+      // bezier.add(cam[countCam], "bezierT", 0, 1, 0.01).name('t');
+      // bezier.add(cam[countCam], "bezierX1", -100, 100, 0.5).name('1: X');
+      // bezier.add(cam[countCam], "bezierY1", -100, 100, 0.5).name('1: Y');
     
-      bezier.add(cam[countCam], "bezierX2", -100, 100, 0.5).name('2: X');
-      bezier.add(cam[countCam], "bezierY2", -100, 100, 0.5).name('2: Y');
+      // bezier.add(cam[countCam], "bezierX2", -100, 100, 0.5).name('2: X');
+      // bezier.add(cam[countCam], "bezierY2", -100, 100, 0.5).name('2: Y');
     
-      bezier.add(cam[countCam], "bezierX3", -100, 100, 0.5).name('3: X');
-      bezier.add(cam[countCam], "bezierY3", -100, 100, 0.5).name('3: Y');
+      // bezier.add(cam[countCam], "bezierX3", -100, 100, 0.5).name('3: X');
+      // bezier.add(cam[countCam], "bezierY3", -100, 100, 0.5).name('3: Y');
     
-      bezier.add(cam[countCam], "bezierX4", -100, 100, 0.5).name('4: X');
-      bezier.add(cam[countCam], "bezierY4", -100, 100, 0.5).name('4: Y');
+      // bezier.add(cam[countCam], "bezierX4", -100, 100, 0.5).name('4: X');
+      // bezier.add(cam[countCam], "bezierY4", -100, 100, 0.5).name('4: Y');
     
       lookAt[countCam] = camera.addFolder(`Olhar para`);
     
@@ -188,12 +187,12 @@ const loadGUI = () => {
       nodeFiltered = Array.prototype.slice.call(document.querySelectorAll('.folder .title')).filter((arg) => arg.innerText == textFilter);
       nodeFiltered[countCam].setAttribute('id', 'acompanhar');
   
-      for (i = 1; i <= count ; i++){
-        if (vectorObjects[i-1] != '') {
-          lookAt[countCam].add(looking, `Object ${i}`);
-          lookAcompanhar[countCam].add(lookingAcomp, `Object ${i}`);
-        }
-      }
+      // for (i = 1; i <= count ; i++){
+      //   if (vectorObjects[i-1] != '') {
+      //     lookAt[countCam].add(looking, `Object ${i}`);
+      //     lookAcompanhar[countCam].add(lookingAcomp, `Object ${i}`);
+      //   }
+      // }
 
       const animation = camera.addFolder(`Animação`);
       animationCam.push({ 
@@ -247,20 +246,20 @@ const loadGUI = () => {
   translation.add(cam[countCam], "translationY", -100, 100, 0.01).name('Y');
   translation.add(cam[countCam], "translationZ", -100, 200, 0.01).name('Z');
 
-  const bezier = camera.addFolder(`Translação Bezier`);
-  bezier.add(cam[countCam], "bezier").name('Bezier');
-  bezier.add(cam[countCam], "bezierT", 0, 1, 0.01).name('t');
-  bezier.add(cam[countCam], "bezierX1", -100, 100, 0.5).name('1: X');
-  bezier.add(cam[countCam], "bezierY1", -100, 100, 0.5).name('1: Y');
+  // const bezier = camera.addFolder(`Translação Bezier`);
+  // bezier.add(cam[countCam], "bezier").name('Bezier');
+  // bezier.add(cam[countCam], "bezierT", 0, 1, 0.01).name('t');
+  // bezier.add(cam[countCam], "bezierX1", -100, 100, 0.5).name('1: X');
+  // bezier.add(cam[countCam], "bezierY1", -100, 100, 0.5).name('1: Y');
 
-  bezier.add(cam[countCam], "bezierX2", -100, 100, 0.5).name('2: X');
-  bezier.add(cam[countCam], "bezierY2", -100, 100, 0.5).name('2: Y');
+  // bezier.add(cam[countCam], "bezierX2", -100, 100, 0.5).name('2: X');
+  // bezier.add(cam[countCam], "bezierY2", -100, 100, 0.5).name('2: Y');
 
-  bezier.add(cam[countCam], "bezierX3", -100, 100, 0.5).name('3: X');
-  bezier.add(cam[countCam], "bezierY3", -100, 100, 0.5).name('3: Y');
+  // bezier.add(cam[countCam], "bezierX3", -100, 100, 0.5).name('3: X');
+  // bezier.add(cam[countCam], "bezierY3", -100, 100, 0.5).name('3: Y');
 
-  bezier.add(cam[countCam], "bezierX4", -100, 100, 0.5).name('4: X');
-  bezier.add(cam[countCam], "bezierY4", -100, 100, 0.5).name('4: Y');
+  // bezier.add(cam[countCam], "bezierX4", -100, 100, 0.5).name('4: X');
+  // bezier.add(cam[countCam], "bezierY4", -100, 100, 0.5).name('4: Y');
 
   var lookAt = []
   lookAt[0] = camera.addFolder(`Olhar para`);
@@ -311,7 +310,7 @@ const loadGUI = () => {
 
     const obj = gui.addFolder(`Object ${count + 1}`);
 
-    obj.add(deleting, 'Delete Object ' + (count+1));
+    //obj.add(deleting, 'Delete Object ' + (count+1));
 
     config.push({ 
      rotateX: rotateX, 
@@ -396,24 +395,24 @@ const loadGUI = () => {
    animationTranslation.add(animationConfig[count], "translationY", -10, 10, 0.5).name('Y');
    animationTranslation.add(animationConfig[count], "translationZ", -10, 10, 0.5).name('Z');
 
-   animation.add(addAnimation, `Add Animation ${count + 1}`);
+   //animation.add(addAnimation, `Add Animation ${count + 1}`);
 
-   animation.add(animate, `Animate Object ${count + 1}`);
+   //animation.add(animate, `Animate Object ${count + 1}`);
 
 
    count++;
    vectorFolderObjects.push(obj) 
-   vectorObjects.push(idFish);
-   for (i = 0; i < lookAt.length; i++){
-     lookAt[i].add(looking, `Object ${count}`);
-     lookAcompanhar[i].add(lookingAcomp, `Object ${count}`);
-   }
+   vectorObjects.push(idFish == 'food'? '' : idFish);
+  //  for (i = 0; i < lookAt.length; i++){
+  //    lookAt[i].add(looking, `Object ${count}`);
+  //    lookAcompanhar[i].add(lookingAcomp, `Object ${count}`);
+  //  }
   }
 
   addFishDefault('fish1', 10, [-24, 28.5, 0], [4.7, 0, 1.6]);
   addFishDefault('fish2', 0.02, [-100, -37, 0], [6.1, 8.3, 5.8]);
   addFishDefault('fish3', 8, [200,0,0], [3.1, 4.7, 2.9]);
-  addFishDefault('fish4', 1, [0,0,0], [0,0,0]);
+  addFishDefault('fish4', .01, [0,100,0], [0,0,0]);
  
   //ANIMAÇÃO PEIXE 0
   animationObjects.push({ 
@@ -544,49 +543,128 @@ const loadGUI = () => {
     scale: 0,
   });
 
-    //ANIMAÇÃO PEIXE 3
+  //ANIMAÇÃO PEIXE 3
+  animationObjects.push({ 
+    object: 3,
+    time: 18,
+    rotateX: 0, 
+    rotateY: 0, 
+    rotateZ: 0, 
+    translationX: -20, 
+    translationY: 0, 
+    translationZ: 0,
+    scale: 0,
+  },{ 
+    object: 3,
+    time: 1,
+    rotateX: 0, 
+    rotateY: degToRad(-180), 
+    rotateZ: 0, 
+    translationX: 0, 
+    translationY: 0, 
+    translationZ: 0,
+    scale: 0,
+  },{ 
+    object: 3,
+    time: 18,
+    rotateX: 0, 
+    rotateY: 0, 
+    rotateZ: 0, 
+    translationX: 20, 
+    translationY: 0, 
+    translationZ: 0,
+    scale: 0,
+  },{ 
+    object: 3,
+    time: 1,
+    rotateX: 0, 
+    rotateY: degToRad(-180), 
+    rotateZ: 0, 
+    translationX: 0, 
+    translationY: 0, 
+    translationZ: 0,
+    scale: 0,
+  });
+
+  for (let ifood = 4 ; ifood < 70; ifood++){
+    addFishDefault('food', .01, [0,100,0], [0,0,0]);//4
     animationObjects.push({ 
-      object: 3,
+      object: ifood,
       time: 18,
       rotateX: 0, 
       rotateY: 0, 
       rotateZ: 0, 
-      translationX: -20, 
-      translationY: 0, 
-      translationZ: 0,
-      scale: 0,
-    },{ 
-      object: 3,
-      time: 1,
-      rotateX: 0, 
-      rotateY: degToRad(-180), 
-      rotateZ: 0, 
       translationX: 0, 
-      translationY: 0, 
-      translationZ: 0,
-      scale: 0,
-    },{ 
-      object: 3,
-      time: 18,
-      rotateX: 0, 
-      rotateY: 0, 
-      rotateZ: 0, 
-      translationX: 20, 
-      translationY: 0, 
-      translationZ: 0,
-      scale: 0,
-    },{ 
-      object: 3,
-      time: 1,
-      rotateX: 0, 
-      rotateY: degToRad(-180), 
-      rotateZ: 0, 
-      translationX: 0, 
-      translationY: 0, 
+      translationY: -18, 
       translationZ: 0,
       scale: 0,
     });
+  }
+  
+  // addFishDefault('food', .01, [0,100,0], [0,0,0]);
+  // addFishDefault('food', .01, [0,100,0], [0,0,0]);
+  // addFishDefault('food', .01, [0,100,0], [0,0,0]);
+  // addFishDefault('food', .01, [0,100,0], [0,0,0]); //8
+
+  // animationObjects.push({ 
+  //   object: 4,
+  //   time: 18,
+  //   rotateX: 0, 
+  //   rotateY: 0, 
+  //   rotateZ: 0, 
+  //   translationX: 0, 
+  //   translationY: -18, 
+  //   translationZ: 0,
+  //   scale: 0,
+  // });
+
+  // animationObjects.push({ 
+  //   object: 5,
+  //   time: 18,
+  //   rotateX: 0, 
+  //   rotateY: 0, 
+  //   rotateZ: 0, 
+  //   translationX: 0, 
+  //   translationY: -18, 
+  //   translationZ: 0,
+  //   scale: 0,
+  // });
+
+  // animationObjects.push({ 
+  //   object: 6,
+  //   time: 18,
+  //   rotateX: 0, 
+  //   rotateY: 0, 
+  //   rotateZ: 0, 
+  //   translationX: 0, 
+  //   translationY: -18, 
+  //   translationZ: 0,
+  //   scale: 0,
+  // });
+
+  // animationObjects.push({ 
+  //   object: 7,
+  //   time: 18,
+  //   rotateX: 0, 
+  //   rotateY: 0, 
+  //   rotateZ: 0, 
+  //   translationX: 0, 
+  //   translationY: -18, 
+  //   translationZ: 0,
+  //   scale: 0,
+  // });
+
+  // animationObjects.push({ 
+  //   object: 8,
+  //   time: 18,
+  //   rotateX: 0, 
+  //   rotateY: 0, 
+  //   rotateZ: 0, 
+  //   translationX: 0, 
+  //   translationY: -18, 
+  //   translationZ: 0,
+  //   scale: 0,
+  // });
 
   animationPlay = true;
-
 };

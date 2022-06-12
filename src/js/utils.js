@@ -14,7 +14,7 @@ const localObject = (index, a) => {
 
 const deleteObject = (index) => {
   const textFilter = `Object ${index + 1}`
-  vectorObjects[index] = ''
+  vectorObjects[index] = 'x'
   const nodeFiltered = Array.prototype.slice.call(document.querySelectorAll('.folder .title')).filter((arg) => arg.innerText == textFilter);
   nodeFiltered[0].closest('.folder').setAttribute('class', 'none');
 

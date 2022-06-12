@@ -2,7 +2,7 @@
 # File Created: 01.02.2012 21:08:55
 
 newmtl 04___Default
-	Ns 96.0000
+	Ns 10.0000
 	Ni 1.5000
 	d 1.0000
 	Tr 0.0000
@@ -12,5 +12,5 @@ newmtl 04___Default
 	Kd 0.5882 0.5882 0.5882
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
+	map_Ka TropicalFish04.jpg
 	map_Kd TropicalFish04.jpg
-

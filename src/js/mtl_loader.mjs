@@ -125,6 +125,7 @@ function parseMTL(mtlText) {
         material.diffuseMap = unparsedArgs;
     }
 
+
     /*
         ==========================================
         Funções para lidar com a diretiva "map_Ns"
