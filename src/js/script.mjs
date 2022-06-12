@@ -3,8 +3,42 @@ import * as mtlLoader from "./mtl_loader.mjs"
 import * as textureManager from "./texture_manager.mjs"
 import * as trigonometry from "./trig.mjs"
 
+var state = {
+  gl: null,
+  program: null,
+  ui: {
+    pressedKeys: {},
+  },
+  animation: {},
+  app: {
+    eye: {
+      x:3.,
+      y:3.,
+      z:7.,
+    },
+  },
+}
+
+
+function mousedown(event) {
+  var point = uiUtils.pixelInputToCanvasCoord(event, state.canvas);
+  var pixels = new Uint8Array(4);
+  state.gl.readPixels(point.x, point.y, 1, 1, state.gl.RGBA, state.gl.UNSIGNED_BYTE, pixels);
+  if(pixels[0] === 127) {console.log("Red")}
+  document.addEventListener("click", event => {
+    console.log("Clique");
+    console.log("clientX: " + event.clientX + " - clientY: " + event.clientY);
+  })
+}
+
 async function main() {
   const { gl, meshProgramInfo } = initializeWorld();
+
+  state.canvas = document.getElementById("canvas");
+  state.gl = gl
+  document.onkeydown = keydown;
+  document.onkeyup = keyup;
+  state.canvas.onmousedown = mousedown;
 
   var then = 0;
   const mtl = [];
@@ -77,40 +111,40 @@ async function main() {
         });
     }
 
-  // Para cada elemento no nosso OBJ, definimos sua geometria e pegamos o material associado
-  
-  parts.push(obj[indicadorPeixe].geometries.map(
-    ({ material, data }) => {
+    // Para cada elemento no nosso OBJ, definimos sua geometria e pegamos o material associado
 
-      // Se temos coordenadas de textura e normais, tentamos calcular as tangentes
-      if (data.texcoord && data.normal) {
-        data.tangent = trigonometry.generateTangents(data.position, data.texcoord);
-      } else {
-        data.tangent = { value: [1, 0, 0] };
-      }
+    parts.push(obj[indicadorPeixe].geometries.map(
+      ({ material, data }) => {
 
-      // Se temos cor nos dados, use a cor; se não, é branco
-      if (data.color) {
-        if (data.position.length === data.color.length) {
-          data.color = { numComponents: 3, data: data.color };
+        // Se temos coordenadas de textura e normais, tentamos calcular as tangentes
+        if (data.texcoord && data.normal) {
+          data.tangent = trigonometry.generateTangents(data.position, data.texcoord);
+        } else {
+          data.tangent = { value: [1, 0, 0] };
         }
-        
-      } else {
-        data.color = { value: [1, 1, 1, 1] };
+
+        // Se temos cor nos dados, use a cor; se não, é branco
+        if (data.color) {
+          if (data.position.length === data.color.length) {
+            data.color = { numComponents: 3, data: data.color };
+          }
+
+        } else {
+          data.color = { value: [1, 1, 1, 1] };
+        }
+
+        // Joga tudo no formato pro buffer
+        const bufferInfo = webglUtils.createBufferInfoFromArrays(gl, data);
+
+        return {
+          material: {
+            ...defaultMaterial,
+            ...mtl[indicadorPeixe][material],
+          },
+          bufferInfo: bufferInfo,
+        };
       }
-
-      // Joga tudo no formato pro buffer
-      const bufferInfo = webglUtils.createBufferInfoFromArrays(gl, data);
-
-      return {
-        material: {
-          ...defaultMaterial,
-          ...mtl[indicadorPeixe][material],
-        },
-        bufferInfo: bufferInfo,
-      };
-    }
-  ));
+    ));
     indicadorPeixe++;
   }
 
@@ -265,7 +299,7 @@ async function main() {
     u_viewWorldPosition: [0, 0, 100],
   });
 
-    // PEIXE 4
+  // PEIXE 4
 
   // Define o offset que precisamos mover o objeto para que ele fique centrado na câmera
   objOffset.push(m4.scaleVector(
@@ -295,7 +329,7 @@ async function main() {
   function render(now) {
 
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
-    initBkgnd(gl);
+    //initBkgnd(gl);
 
 
 
