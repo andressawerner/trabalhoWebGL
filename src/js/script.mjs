@@ -368,7 +368,7 @@ async function main() {
 
     // OBJETO 
     animationObjectPlay = 0;
-    while (animationObjectPlay < numFishes) {
+    while (animationObjectPlay < numFishesTotal) {
       const aO = animationObjects.filter((arg) => arg.object == animationObjectPlay)
       if (aO.length){
       let aT = aO[0].time; //3seg      //passed 2seg
@@ -424,7 +424,7 @@ async function main() {
       config[animationObjectPlay].translationZ += (aO[i].translationZ * deltaT)
 
       let isNext = false;
-      for (let i = 0; i < numFishes; i++){
+      for (let i = 0; i < numFishesTotal; i++){
         const diffX = config[animationObjectPlay].translationX > config[i].translationX ?
           config[animationObjectPlay].translationX - config[i].translationX
           : config[i].translationX - config[animationObjectPlay].translationX
@@ -432,7 +432,7 @@ async function main() {
         const diffY = config[animationObjectPlay].translationY > config[i].translationY ?
         config[animationObjectPlay].translationY - config[i].translationY
         : config[i].translationY - config[animationObjectPlay].translationY
-        if (diffX + diffY < 20) {
+        if (diffX + diffY < 15) {
           isNext = true;
         }
 
@@ -444,7 +444,6 @@ async function main() {
         timePassed[animationObjectPlay] = 0;
         deleteObject(animationObjectPlay)
         dropFood = false;
-        //animationPlay = false;
       }
     }
     }
@@ -488,7 +487,6 @@ async function main() {
     gl.enable(gl.CULL_FACE);
 
     var aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
-    //var projectionMatrix = m4.perspective(fieldOfViewRadians, aspect, 1, 2000);
 
     var fieldOfViewRadians = degToRad(150 - cam[selectedCam].zoom);
 

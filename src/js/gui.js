@@ -205,19 +205,18 @@ const loadGUI = () => {
 
 
    count++;
-   //vectorFolderObjects.push(obj) 
-   vectorObjects.push(idFish == 'food'? '' : idFish);
-  //  for (i = 0; i < lookAt.length; i++){
-  //    lookAt[i].add(looking, `Object ${count}`);
-  //    lookAcompanhar[i].add(lookingAcomp, `Object ${count}`);
-  //  }
+   vectorObjects.push(idFish == 'food' ? '' : idFish);
   }
 
   addFishDefault('fish1', 10, [-24, 28.5, 0], [4.7, 0, 1.6]);
   addFishDefault('fish2', 0.02, [-100, -37, 0], [6.1, 8.3, 12.6]);
   addFishDefault('fish3', 8, [200,0,0], [3.1, 4.7, 2.9]);
+  addFishDefault('fish4', 3, [80,10,10], [4.7, 0, 1.6]);
+  addFishDefault('fish1', 10, [-60, -20, 0], [4.7, 0, 1.6]);
+  addFishDefault('fish2', 0.02, [-80, -37, -20], [6.1, 8.3, 12.6]);
+  addFishDefault('fish3', 8, [270,-50,0], [3.1, 4.7, 2.9]);
   addFishDefault('fish4', .01, [0,100,0], [0,0,0]);
- 
+
   //ANIMAÇÃO PEIXE 0
   animationObjects.push({ 
     object: 0,
@@ -264,16 +263,6 @@ const loadGUI = () => {
   //ANIMAÇÃO PEIXE 1
   animationObjects.push({ 
     object: 1,
-    time: 1,
-    rotateX: 0, 
-    rotateY: 0, 
-    rotateZ: degToRad(180), 
-    translationX: 0, 
-    translationY: 0, 
-    translationZ: 0,
-    scale: 0,
-  },{ 
-    object: 1,
     time: 12,
     rotateX: 0, 
     rotateY: 0, 
@@ -299,6 +288,16 @@ const loadGUI = () => {
     rotateY: 0, 
     rotateZ: 0, 
     translationX: -20, 
+    translationY: 0, 
+    translationZ: 0,
+    scale: 0,
+  },{ 
+    object: 1,
+    time: 1,
+    rotateX: 0, 
+    rotateY: 0, 
+    rotateZ: degToRad(180), 
+    translationX: 0, 
     translationY: 0, 
     translationZ: 0,
     scale: 0,
@@ -390,7 +389,189 @@ const loadGUI = () => {
     scale: 0,
   });
 
-  for (let ifood = 4 ; ifood < 70; ifood++){
+  //ANIMAÇÃO PEIXE 4
+  animationObjects.push({ 
+    object: 4,
+    time: 4,
+    rotateX: 0, 
+    rotateY: 0, 
+    rotateZ: 0, 
+    translationX: 10, 
+    translationY: 0, 
+    translationZ: 0,
+    scale: 0,
+  },{ 
+    object: 4,
+    time: 1,
+    rotateX: 0, 
+    rotateY: 0, 
+    rotateZ: degToRad(180), 
+    translationX: 0, 
+    translationY: 0, 
+    translationZ: 0,
+    scale: 0,
+  },{ 
+    object: 4,
+    time: 12,
+    rotateX: 0, 
+    rotateY: 0, 
+    rotateZ: 0, 
+    translationX: -26, 
+    translationY: 0, 
+    translationZ: 0,
+    scale: 0,
+  },{ 
+    object: 4,
+    time: 1,
+    rotateX: 0, 
+    rotateY: 0, 
+    rotateZ: degToRad(180), 
+    translationX: 0, 
+    translationY: 0, 
+    translationZ: 0,
+    scale: 0,
+  },{ 
+    object: 4,
+    time: 12,
+    rotateX: 0, 
+    rotateY: 0, 
+    rotateZ: 0, 
+    translationX: 26, 
+    translationY: 0, 
+    translationZ: 0,
+    scale: 0,
+  });
+
+  //ANIMAÇÃO PEIXE 5
+  animationObjects.push({ 
+    object: 5,
+    time: 10,
+    rotateX: 0, 
+    rotateY: 0, 
+    rotateZ: 0, 
+    translationX: 20, 
+    translationY: 0, 
+    translationZ: 0,
+    scale: 0,
+  },{ 
+    object: 5,
+    time: 1,
+    rotateX: 0, 
+    rotateY: 0, 
+    rotateZ: degToRad(180), 
+    translationX: 0, 
+    translationY: 0, 
+    translationZ: 0,
+    scale: 0,
+  },{ 
+    object: 5,
+    time: 10,
+    rotateX: 0, 
+    rotateY: 0, 
+    rotateZ: 0, 
+    translationX: -20, 
+    translationY: 0, 
+    translationZ: 0,
+    scale: 0,
+  },{ 
+    object: 5,
+    time: 1,
+    rotateX: 0, 
+    rotateY: 0, 
+    rotateZ: degToRad(180), 
+    translationX: 0, 
+    translationY: 0, 
+    translationZ: 0,
+    scale: 0,
+  });
+
+  //ANIMAÇÃO PEIXE 6
+  animationObjects.push({ 
+    object: 6,
+    time: 20,
+    rotateX: 0, 
+    rotateY: 0, 
+    rotateZ: 0, 
+    translationX: 19, 
+    translationY: 0, 
+    translationZ: 0,
+    scale: 0,
+  },{ 
+    object: 6,
+    time: 1,
+    rotateX: 0, 
+    rotateY: degToRad(180), 
+    rotateZ: 0, 
+    translationX: 0, 
+    translationY: 0, 
+    translationZ: 0,
+    scale: 0,
+  },{ 
+    object: 6,
+    time: 20,
+    rotateX: 0, 
+    rotateY: 0, 
+    rotateZ: 0, 
+    translationX: -19, 
+    translationY: 0, 
+    translationZ: 0,
+    scale: 0,
+  },{ 
+    object: 6,
+    time: 1,
+    rotateX: 0, 
+    rotateY: degToRad(180), 
+    rotateZ: 0, 
+    translationX: 0, 
+    translationY: 0, 
+    translationZ: 0,
+    scale: 0,
+  });
+
+  //ANIMAÇÃO PEIXE 7
+  animationObjects.push({ 
+    object: 7,
+    time: 10,
+    rotateX: 0, 
+    rotateY: 0, 
+    rotateZ: 0, 
+    translationX: -40, 
+    translationY: 0, 
+    translationZ: 0,
+    scale: 0,
+  },{ 
+    object: 7,
+    time: 1,
+    rotateX: 0, 
+    rotateY: degToRad(-180), 
+    rotateZ: 0, 
+    translationX: 0, 
+    translationY: 0, 
+    translationZ: 0,
+    scale: 0,
+  },{ 
+    object: 7,
+    time: 10,
+    rotateX: 0, 
+    rotateY: 0, 
+    rotateZ: 0, 
+    translationX: 40, 
+    translationY: 0, 
+    translationZ: 0,
+    scale: 0,
+  },{ 
+    object: 7,
+    time: 1,
+    rotateX: 0, 
+    rotateY: degToRad(-180), 
+    rotateZ: 0, 
+    translationX: 0, 
+    translationY: 0, 
+    translationZ: 0,
+    scale: 0,
+  });
+
+  for (let ifood = numFishesTotal ; ifood < 70; ifood++){
     addFishDefault('food', .01, [0,100,0], [0,0,0]);//4
     animationObjects.push({ 
       object: ifood,
@@ -399,76 +580,11 @@ const loadGUI = () => {
       rotateY: 0, 
       rotateZ: 0, 
       translationX: 0, 
-      translationY: -18, 
+      translationY: -26, 
       translationZ: 0,
       scale: 0,
     });
   }
-  
-  // addFishDefault('food', .01, [0,100,0], [0,0,0]);
-  // addFishDefault('food', .01, [0,100,0], [0,0,0]);
-  // addFishDefault('food', .01, [0,100,0], [0,0,0]);
-  // addFishDefault('food', .01, [0,100,0], [0,0,0]); //8
-
-  // animationObjects.push({ 
-  //   object: 4,
-  //   time: 18,
-  //   rotateX: 0, 
-  //   rotateY: 0, 
-  //   rotateZ: 0, 
-  //   translationX: 0, 
-  //   translationY: -18, 
-  //   translationZ: 0,
-  //   scale: 0,
-  // });
-
-  // animationObjects.push({ 
-  //   object: 5,
-  //   time: 18,
-  //   rotateX: 0, 
-  //   rotateY: 0, 
-  //   rotateZ: 0, 
-  //   translationX: 0, 
-  //   translationY: -18, 
-  //   translationZ: 0,
-  //   scale: 0,
-  // });
-
-  // animationObjects.push({ 
-  //   object: 6,
-  //   time: 18,
-  //   rotateX: 0, 
-  //   rotateY: 0, 
-  //   rotateZ: 0, 
-  //   translationX: 0, 
-  //   translationY: -18, 
-  //   translationZ: 0,
-  //   scale: 0,
-  // });
-
-  // animationObjects.push({ 
-  //   object: 7,
-  //   time: 18,
-  //   rotateX: 0, 
-  //   rotateY: 0, 
-  //   rotateZ: 0, 
-  //   translationX: 0, 
-  //   translationY: -18, 
-  //   translationZ: 0,
-  //   scale: 0,
-  // });
-
-  // animationObjects.push({ 
-  //   object: 8,
-  //   time: 18,
-  //   rotateX: 0, 
-  //   rotateY: 0, 
-  //   rotateZ: 0, 
-  //   translationX: 0, 
-  //   translationY: -18, 
-  //   translationZ: 0,
-  //   scale: 0,
-  // });
 
   animationPlay = true;
 };
