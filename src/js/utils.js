@@ -225,7 +225,7 @@ function initBkgnd(gl) {
   backTex.Img.onload = function () {
     handleBkTex(backTex, gl);
   }
-  backTex.Img.src = "src/styles/fundo-do-mar-para-videoconferencia_23-2148632597.webp";
+  //backTex.Img.src = "src/styles/fundo-do-mar-para-videoconferencia_23-2148632597.webp";
 }
 
 function handleBkTex(tex, gl) {

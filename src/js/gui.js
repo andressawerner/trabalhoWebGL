@@ -410,7 +410,7 @@ const loadGUI = () => {
   }
 
   addFishDefault('fish1', 10, [-24, 28.5, 0], [4.7, 0, 1.6]);
-  addFishDefault('fish2', 0.02, [-100, -37, 0], [6.1, 8.3, 5.8]);
+  addFishDefault('fish2', 0.02, [-100, -37, 0], [6.1, 8.3, 12.6]);
   addFishDefault('fish3', 8, [200,0,0], [3.1, 4.7, 2.9]);
   addFishDefault('fish4', .01, [0,100,0], [0,0,0]);
  
@@ -474,7 +474,7 @@ const loadGUI = () => {
     rotateX: 0, 
     rotateY: 0, 
     rotateZ: 0, 
-    translationX: -20, 
+    translationX: 20, 
     translationY: 0, 
     translationZ: 0,
     scale: 0,
@@ -494,7 +494,7 @@ const loadGUI = () => {
     rotateX: 0, 
     rotateY: 0, 
     rotateZ: 0, 
-    translationX: 20, 
+    translationX: -20, 
     translationY: 0, 
     translationZ: 0,
     scale: 0,

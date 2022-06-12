@@ -24,6 +24,8 @@
 }
 .dg.main.taller-than-window {
   overflow-y: auto;
+  display: none;
+  /* RETIRANDO CONTROLES */
 }
 .dg.main.taller-than-window .close-button {
   opacity: 1;
